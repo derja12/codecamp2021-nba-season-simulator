@@ -20,15 +20,36 @@ class MyRequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         self.db = nbaDB()
-        teams = self.db.getTeams
+        teams = self.db.getTeams()
         self.wfile.write(bytes(json.dumps(teams), "utf-8"))
+
+    def handleGetTeam(self, id):
+        self.db = nbaDB()
+        team = self.db.getTeam(id)
+        if team is None:
+            self.handleNotFound()
+
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
+        self.wfile.write(bytes(json.dumps(team), "utf-8"))
 
     def do_GET(self):
         print("This code will handle all incoming GET requests.")
-        print("The request path is: ", self.path)
+        print("The request path is:", self.path)
 
-        if self.path == "/teams":
-            self.handleGetTeams()
+        paths = self.path.split("/")[1:]
+        collection = paths[0]
+        if len(paths) > 1:
+            member = paths[1]
+        else:
+            member = None
+
+        if collection == "/teams":
+            if member is not None:
+                self.handleGetTeam(member)
+            else:
+                self.handleGetTeams()
         else:
             self.handleNotFound()
 

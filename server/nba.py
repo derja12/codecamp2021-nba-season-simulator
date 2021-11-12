@@ -17,5 +17,5 @@ class nbaDB:
         return self.cursor.fetchall()
 
     def getTeam(self, id):
-        self.cursor.execute("SELECT * FROM teams where id = ?", [id])
+        self.cursor.execute("SELECT * FROM teams WHERE id = ?", [id])
         return self.cursor.fetchone()
