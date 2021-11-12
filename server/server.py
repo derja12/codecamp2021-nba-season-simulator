@@ -45,7 +45,7 @@ class MyRequestHandler(BaseHTTPRequestHandler):
         else:
             member = None
 
-        if collection == "/teams":
+        if collection == "teams":
             if member is not None:
                 self.handleGetTeam(member)
             else:
