@@ -52,21 +52,21 @@ function addWesternTeams() {
     HRockets.classList.add('team-div')
     NOPelicans.id = "pelicans"
     NOPelicans.classList.add('team-div')
-    westernDiv.appendChild(GSWarriors)
-    westernDiv.appendChild(PSuns)
-    westernDiv.appendChild(UJazz)
+    westernDiv.appendChild(DMavericks)
     westernDiv.appendChild(DNuggets)
+    westernDiv.appendChild(GSWarriors)
+    westernDiv.appendChild(HRockets)
     westernDiv.appendChild(LAClippers)
     westernDiv.appendChild(LALakers)
     westernDiv.appendChild(MGrizzlies)
-    westernDiv.appendChild(SKings)
-    westernDiv.appendChild(PTrailBlazers)
-    westernDiv.appendChild(OCKThunder)
-    westernDiv.appendChild(SASpurs)
     westernDiv.appendChild(MTimberwolves)
-    westernDiv.appendChild(HRockets)
-    westernDiv.appendChild(DMavericks)
     westernDiv.appendChild(NOPelicans)
+    westernDiv.appendChild(OCKThunder)
+    westernDiv.appendChild(PSuns)
+    westernDiv.appendChild(PTrailBlazers)
+    westernDiv.appendChild(SKings)
+    westernDiv.appendChild(SASpurs)
+    westernDiv.appendChild(UJazz)
 }
 
 function addEasternTeams() {
@@ -115,6 +115,22 @@ function addEasternTeams() {
     DPistons.classList.add('team-div')
     NYKnicks.id = "knicks"
     NYKnicks.classList.add('team-div')
+    easternDiv.appendChild(AHawks)
+    easternDiv.appendChild(BCeltics)
+    easternDiv.appendChild(CHornets)
+    easternDiv.appendChild(CBulls)
+    easternDiv.appendChild(CCavaliers)
+    easternDiv.appendChild(DPistons)
+    easternDiv.appendChild(IPacers)
+    easternDiv.appendChild(MHeat)
+    easternDiv.appendChild(MBucks)
+    easternDiv.appendChild(NJNets)
+    easternDiv.appendChild(NYKnicks)
+    easternDiv.appendChild(OMagic)
+    easternDiv.appendChild(P76ers)
+    easternDiv.appendChild(TRaptors)
+    easternDiv.appendChild(WWizards)
+    
 }
 
 var simulateButton = document.querySelector("#simulate")
