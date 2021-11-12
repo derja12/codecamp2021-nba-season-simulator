@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-
-
 var simulateButton = document.querySelector("#simulate")
 
 simulateButton.onclick = simulateSeason;
-function simulateSeason()
-{
+function simulateSeason() {
 
 }
-=======
 
 /*
 
@@ -21,7 +16,4 @@ onDropDownClicked():
 
 onSimulateButtonClicked():
     - 
-
-
 */
->>>>>>> 05cddde5c3da156ef59184135f68d89331c8b144
