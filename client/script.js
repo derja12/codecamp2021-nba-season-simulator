@@ -18,6 +18,75 @@ gameTeams = {
     "clippers": {
         "stats": 340
     },
+    "grizzlies": {
+        "stats": 180
+    },
+    "kings": {
+        "stats": 180
+    },
+    "trailblazers": {
+        "stats": 180
+    },
+    "thunder": {
+        "stats": 180
+    },
+    "spurs": {
+        "stats": 180
+    },
+    "timberwolves": {
+        "stats": 180
+    },
+    "rockets": {
+        "stats": 180
+    },
+    "pelicans": {
+        "stats": 180
+    },
+    "wizards": {
+        "stats": 180
+    },
+    "bulls": {
+        "stats": 180
+    },
+    "nets": {
+        "stats": 180
+    },
+    "76ers": {
+        "stats": 180
+    },
+    "cavaliers": {
+        "stats": 180
+    },
+    "heat": {
+        "stats": 180
+    },
+    "raptors": {
+        "stats": 180
+    },
+    "bucks": {
+        "stats": 180
+    },
+    "hornets": {
+        "stats": 180
+    },
+    "celtics": {
+        "stats": 180
+    },
+    "pacers": {
+        "stats": 180
+    },
+    "hawks": {
+        "stats": 180
+    },
+    "magics": {
+        "stats": 180
+    },
+    "pistons": {
+        "stats": 180
+    },
+    "knicks": {
+        "stats": 180
+    },
     "lakers": {
         "stats": 180
     }
