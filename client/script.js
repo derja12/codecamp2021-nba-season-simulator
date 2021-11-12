@@ -94,10 +94,6 @@ gameTeams = {
     }
 }
 
-addWesternTeams();
-addEasternTeams();
-createSchedule();
-
 function addWesternTeams() {
     var westernDiv = document.querySelector("#western")
     var pacificDiv = document.querySelector("#pacific")
@@ -195,103 +191,43 @@ function addWesternTeams() {
     northwestDiv.appendChild(UJazz)
 }
 
-function addEasternTeams() {
+/*
+[
+    {
+        "id": 1632525235325,
+        "name": "Hawks",
+        "city": "Atlanta",
+        "abbreviation":,
+        "conference":,
+        "division":,
+    },
 
-    var easternDiv = document.querySelector("#eastern")
+]
+*/
+
+function addEasternTeams(teams) {
+
     var atlanticDiv = document.querySelector("#atlantic")
     var centralDiv = document.querySelector("#central")
     var southeastDiv = document.querySelector("#southeast")
-    var WWizards = document.createElement("div")
-    var CBulls = document.createElement("div")
-    var NJNets = document.createElement("div")
-    var P76ers = document.createElement("div")
-    var CCavaliers = document.createElement("div")
-    var MHeat = document.createElement("div")
-    var TRaptors = document.createElement("div")
-    var MBucks = document.createElement("div")
-    var CHornets = document.createElement("div")
-    var BCeltics = document.createElement("div")
-    var IPacers = document.createElement("div")
-    var AHawks = document.createElement("div")
-    var OMagic = document.createElement("div")
-    var DPistons = document.createElement("div")
-    var NYKnicks = document.createElement("div")
-    WWizards.id = "wizards"
-    WWizards.classList.add('team-div')
-    WWizards.innerHTML = "Washington Wizards"
-    WWizards.onclick = function () {teamStats(WWizards)}
-    CBulls.id = "bulls"
-    CBulls.classList.add('team-div')
-    CBulls.innerHTML = "Chicago Bulls"
-    CBulls.onclick = function () {teamStats(CBulls)}
-    NJNets.id = "nets"
-    NJNets.classList.add('team-div')
-    NJNets.innerHTML = "New Jersey Nets"
-    NJNets.onclick = function () {teamStats(NJNets)}
-    P76ers.id = "76ers"
-    P76ers.classList.add('team-div')
-    P76ers.innerHTML = "Philadelphia 76ers"
-    P76ers.onclick = function () {teamStats(P76ers)}
-    CCavaliers.id = "cavaliers"
-    CCavaliers.classList.add('team-div')
-    CCavaliers.innerHTML = "Cleveland Cavaliers"
-    CCavaliers.onclick = function () {teamStats(CCavaliers)}
-    MHeat.id = "heat"
-    MHeat.classList.add('team-div')
-    MHeat.innerHTML = "Miami Heat"
-    MHeat.onclick = function () {teamStats(MHeat)}
-    TRaptors.id = "raptors"
-    TRaptors.classList.add('team-div')
-    TRaptors.innerHTML = "Toronto Raptors"
-    TRaptors.onclick = function () {teamStats(TRaptors)}
-    MBucks.id = "bucks"
-    MBucks.classList.add('team-div')
-    MBucks.innerHTML = "Milwaukee Bucks"
-    MBucks.onclick = function () {teamStats(MBucks)}
-    CHornets.id = "hornets"
-    CHornets.classList.add('team-div')
-    CHornets.innerHTML = "Charlotte Hornets"
-    CHornets.onclick = function () {teamStats(CHornets)}
-    BCeltics.id = "celtics"
-    BCeltics.classList.add('team-div')
-    BCeltics.innerHTML = "Boston Celtics"
-    BCeltics.onclick = function () {teamStats(BCeltics)}
-    IPacers.id = "pacers"
-    IPacers.classList.add('team-div')
-    IPacers.innerHTML = "Indiana Pacers"
-    IPacers.onclick = function () {teamStats(IPacers)}
-    AHawks.id = "hawks"
-    AHawks.classList.add('team-div')
-    AHawks.innerHTML = "Atlanta Hawks"
-    AHawks.onclick = function () {teamStats(AHawks)}
-    OMagic.id = "magic"
-    OMagic.classList.add('team-div')
-    OMagic.innerHTML = "Orlando Magic"
-    OMagic.onclick = function () {teamStats(OMagic)}
-    DPistons.id = "pistons"
-    DPistons.classList.add('team-div')
-    DPistons.innerHTML = "Detroit Pistons"
-    DPistons.onclick = function () {teamStats(DPistons)}
-    NYKnicks.id = "knicks"
-    NYKnicks.classList.add('team-div')
-    NYKnicks.innerHTML = "New York Knicks"
-    NYKnicks.onclick = function () {teamStats(NYKnicks)}
-    southeastDiv.appendChild(AHawks)
-    atlanticDiv.appendChild(BCeltics)
-    southeastDiv.appendChild(CHornets)
-    centralDiv.appendChild(CBulls)
-    centralDiv.appendChild(CCavaliers)
-    centralDiv.appendChild(DPistons)
-    centralDiv.appendChild(IPacers)
-    southeastDiv.appendChild(MHeat)
-    centralDiv.appendChild(MBucks)
-    atlanticDiv.appendChild(NJNets)
-    atlanticDiv.appendChild(NYKnicks)
-    southeastDiv.appendChild(OMagic)
-    atlanticDiv.appendChild(P76ers)
-    atlanticDiv.appendChild(TRaptors)
-    southeastDiv.appendChild(WWizards)
+
+    for (i = 0; i < teams.length; i++) {
+        team = teams[i]
+        var teamDiv = document.createElement("div")
     
+        teamDiv.id = team["name"].toLowerCase();
+        teamDiv.classList.add('team-div');
+        teamDiv.innerHTML = team["city"] + " " + team["name"];
+        teamDiv.onclick = function () {teamStats(teamDiv)};
+
+        if (team["division"] == "Southeast") {
+            southeastDiv.appendChild(teamDiv);
+        } else if (team["division"] == "Central") {
+            centralDiv.appendChild(teamDiv);
+        } else if (team["division"] == "Atlantic") {
+            atlanticDiv.appendChild(teamDiv);
+        }
+    }
 }
 
 function teamStats(team)
@@ -422,4 +358,19 @@ function gameExists(gameName) {
         }
     }
     return false;
+}
+
+// FETCH/GET TEAM INFORMATION
+function getTeamInfo() {
+    fetch("http://localhost:8080/teams", {
+        method: "GET"
+    }).then(function (response) {
+        response.json().then(function (team_array) {
+            console.log(team_array);
+            addWesternTeams(team_array);
+            addEasternTeams(team_array);
+            // [{"name"="hawks"}]
+            createSchedule();
+        });
+    });
 }
