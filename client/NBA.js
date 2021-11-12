@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 var simulateButton = document.querySelector("#simulate")
@@ -31,6 +32,14 @@ function addWesternTeams()
 
 }
 =======
+=======
+var simulateButton = document.querySelector("#simulate")
+
+simulateButton.onclick = simulateSeason;
+function simulateSeason() {
+
+}
+>>>>>>> 61c5a87a3f8517dd1ad046f04a8a4fee240c96ff
 
 /*
 
@@ -43,7 +52,11 @@ onDropDownClicked():
 
 onSimulateButtonClicked():
     - 
+<<<<<<< HEAD
 
 
 */
 >>>>>>> 05cddde5c3da156ef59184135f68d89331c8b144
+=======
+*/
+>>>>>>> 61c5a87a3f8517dd1ad046f04a8a4fee240c96ff
