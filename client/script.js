@@ -1,6 +1,8 @@
 SCHEDULE_COUNTS = {}
 SCHEDULE = []
 
+getTeamInfo();
+
 gameTeams = {
     "warriors": {
         "stats": 550
@@ -94,15 +96,14 @@ gameTeams = {
     }
 }
 
-function addWesternTeams() 
+function addWesternTeams(teams) 
 {
     
     var pacificDiv = document.querySelector("#pacific")
     var northwestDiv = document.querySelector("#northwest")
     var southwestDiv = document.querySelector("#southwest")
 
-    for (i = 0; i < teams.length; i++) {
-        team = teams[i]
+    teams.forEach(team => {
         var teamDiv = document.createElement("div")
     
         teamDiv.id = team["name"].toLowerCase();
@@ -117,7 +118,7 @@ function addWesternTeams()
         } else if (team["division"] == "Southwest") {
             southwestDiv.appendChild(teamDiv);
         }
-    }
+    });
 }
 
 /*
@@ -140,8 +141,7 @@ function addEasternTeams(teams) {
     var centralDiv = document.querySelector("#central")
     var southeastDiv = document.querySelector("#southeast")
 
-    for (i = 0; i < teams.length; i++) {
-        team = teams[i]
+    teams.forEach(team => {
         var teamDiv = document.createElement("div")
     
         teamDiv.id = team["name"].toLowerCase();
@@ -156,7 +156,7 @@ function addEasternTeams(teams) {
         } else if (team["division"] == "Atlantic") {
             atlanticDiv.appendChild(teamDiv);
         }
-    }
+    });
 }
 
 function teamStats(team)
@@ -228,40 +228,7 @@ onSimulateButtonClicked():
     - 
 */
 
-function createSchedule() {
-    allTeams = [
-        {"name": "jazz"},
-        {"name": "suns"},
-        {"name": "warriors"},
-        {"name": "mavericks"},
-        {"name": "nuggets"},
-        {"name": "clippers"},
-        {"name": "grizzlies"},
-        {"name": "kings"},
-        {"name": "trailblazers"},
-        {"name": "thunder"},
-        {"name": "spurs"},
-        {"name": "timberwolves"},
-        {"name": "rockets"},
-        {"name": "pelicans"},
-        {"name": "wizards"},
-        {"name": "bulls"},
-        {"name": "nets"},
-        {"name": "76ers"},
-        {"name": "cavaliers"},
-        {"name": "heat"},
-        {"name": "raptors"},
-        {"name": "bucks"},
-        {"name": "hornets"},
-        {"name": "celtics"},
-        {"name": "pacers"},
-        {"name": "hawks"},
-        {"name": "magic"},
-        {"name": "pistons"},
-        {"name": "knicks"},
-        {"name": "lakers"},
-    ] 
-    // allTeams == [{},{},{},{}]
+function createSchedule(allTeams) {
     for (var i = 0; i < allTeams.length; i++) {
         currentTeam = allTeams[i];
 
@@ -298,8 +265,7 @@ function getTeamInfo() {
             console.log(team_array);
             addWesternTeams(team_array);
             addEasternTeams(team_array);
-            // [{"name"="hawks"}]
-            createSchedule();
+            createSchedule(team_array);
         });
     });
 }
