@@ -1,0 +1,57 @@
+body
+{
+    background-color: black;
+}
+
+#mainBody
+{
+    display: grid;
+    margin: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    background-color: rgb(189, 189, 189);
+}
+
+#header
+{
+    grid-column: 1 / -1;
+    grid-row: 1 / 1;
+    text-align: center;
+}
+
+h1
+{
+    text-align: center;
+}
+
+#western
+{
+    display: grid;
+    grid-column: 1 / 1;
+    grid-row: 2 / 2;
+    text-align: center;
+    text-align: center;
+
+}           
+
+#eastern
+{
+    display: grid;
+    text-align: center;
+    grid-column: 2 / 2;
+    grid-row: 2 / 2;
+
+}           
+
+#buttons
+{
+    display: grid;
+    grid-row: 3 / 3;
+    grid-column: 1 / -1;
+}
+
+#simulate
+{
+    text-align: center;
+
+}
