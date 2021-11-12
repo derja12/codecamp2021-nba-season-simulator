@@ -8,7 +8,7 @@ body {
     display: grid;
     margin: 10px;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
     background-color: rgb(189, 189, 189);
 }
 
@@ -22,40 +22,83 @@ h1 {
     text-align: center;
 }
 
+#leftColumn
+{
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    text-transform: uppercase;
+}
+
+#rightColumn
+{
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    text-transform: uppercase;
+}
+
 #western 
 {
     grid-column: 1 / 1;
     grid-row: 2 / 2;
     text-align: center;
+    text-transform: capitalize;
+    margin-top: 1px;
+    border-top: 4px solid royalblue;
+
 }           
 
-#eastern {
-    
+#eastern 
+{
     text-align: center;
     grid-column: 2 / 2;
     grid-row: 2 / 2;
+    margin-top: 1px;
+    border-top: 4px solid royalblue;
 
 }           
 
 #buttons {
-    display: grid;grid-row: 3 / 3;
+    display: grid;
+    grid-row: 3 / 3;
     grid-column: 1 / -1;
 }
 
-#simulate {
+#simulate 
+{
+    margin-top: 10px;
     text-align: center;
 
 }
 
 .team-div
 {
+    display: grid;
     height: auto;
+    margin-top: 8px;
+    font-weight: normal;
+    font-size: medium;
 }
 
-/* ======== Simulation-Ran Screen ======== */
+.division
+{
+    margin-top: 10px;
+    text-transform: capitalize;
+    font-size: x-large;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto auto;
+}
 
+.logos
+{
+    height: 50px;
+    width: 50px;
+    grid-row: 2 / 2;
+}
 
-#after-simulation-screen {
+#after-simulation-screen 
+{
     background-color: #7A31C7;
     display: grid;
     height: 100vh;
