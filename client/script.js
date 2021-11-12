@@ -1,3 +1,5 @@
+SCHEDULE_COUNTS = {}
+SCHEDULE = []
 
 gameTeams = {
     "warriors": {
@@ -78,7 +80,7 @@ gameTeams = {
     "hawks": {
         "stats": 180
     },
-    "magics": {
+    "magic": {
         "stats": 180
     },
     "pistons": {
@@ -92,8 +94,9 @@ gameTeams = {
     }
 }
 
-addWesternTeams()
-addEasternTeams()
+addWesternTeams();
+addEasternTeams();
+createSchedule();
 
 function addWesternTeams() {
     var westernDiv = document.querySelector("#western")
@@ -259,10 +262,19 @@ var simulateButton = document.querySelector("#simulate")
 
 simulateButton.onclick = simulateSeason;
 function simulateSeason() {
-    console.log(calculateGame("warriors", "jazz"));
-    gameTeams["warriors"]["stats"] = calculateScore(warriors_stats_temp);
-    gameTeams["jazz"]["stats"] = calculateScore(jazz_stats_temp);
-    console.log(calculateGame("warriors", "jazz"));
+    for (i = 0; i < SCHEDULE.length; i++) {
+        team1 = SCHEDULE[i].split("-")[0]
+        team2 = SCHEDULE[i].split("-")[1]
+        console.log(team1, "vs", team2);
+    }
+
+
+    /*
+    PROCESS:
+    1. create list of games to calculate
+
+    
+    */
 }
 
 // points, field-goal-percentage, free-throw-percentage, 3-point-percentage, assists, rebounds
@@ -276,7 +288,6 @@ weight:
     assists: 15%
     rebounds: 15%
 */
-
 
 
 function calculateGame(leftTeamID, rightTeamID) {
@@ -304,3 +315,64 @@ onDropDownClicked():
 onSimulateButtonClicked():
     - 
 */
+
+function createSchedule() {
+    allTeams = [
+        {"name": "jazz"},
+        {"name": "suns"},
+        {"name": "warriors"},
+        {"name": "mavericks"},
+        {"name": "nuggets"},
+        {"name": "clippers"},
+        {"name": "grizzlies"},
+        {"name": "kings"},
+        {"name": "trailblazers"},
+        {"name": "thunder"},
+        {"name": "spurs"},
+        {"name": "timberwolves"},
+        {"name": "rockets"},
+        {"name": "pelicans"},
+        {"name": "wizards"},
+        {"name": "bulls"},
+        {"name": "nets"},
+        {"name": "76ers"},
+        {"name": "cavaliers"},
+        {"name": "heat"},
+        {"name": "raptors"},
+        {"name": "bucks"},
+        {"name": "hornets"},
+        {"name": "celtics"},
+        {"name": "pacers"},
+        {"name": "hawks"},
+        {"name": "magic"},
+        {"name": "pistons"},
+        {"name": "knicks"},
+        {"name": "lakers"},
+    ] 
+    // allTeams == [{},{},{},{}]
+    for (var i = 0; i < allTeams.length; i++) {
+        currentTeam = allTeams[i];
+
+        teamName = currentTeam["name"];
+        SCHEDULE_COUNTS[teamName] = 0;
+
+        for (var j = 0; j < allTeams.length; j++) {
+            possibleName1 = allTeams[j]["name"] + "-" + teamName;
+            possibleName2 = teamName + "-" + allTeams[j]["name"];
+
+            if (!gameExists(possibleName1) && !gameExists(possibleName2) && allTeams[j]["name"] != teamName) {
+                SCHEDULE.push(possibleName1);
+            }
+            
+        }
+    }
+}
+
+function gameExists(gameName) {
+    for (var i = 0; i < SCHEDULE.length; i++) { 
+        if (SCHEDULE[i] == gameName) {
+            return true;
+        }
+    }
+    return false;
+}
