@@ -32,7 +32,6 @@ def initializeTeamData():
     conn.close()
 
 def updateTeamDivison():
-    teams = pd.read_csv("../data/teams.csv")
     conn = sqlite3.connect("../data/nba.db")
     cur = conn.cursor()
 
