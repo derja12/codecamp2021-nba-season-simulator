@@ -11,9 +11,6 @@ import database
 
 
 class MyRequestHandler(BaseHTTPRequestHandler):
-    # your code goes here:
-
-    # override end_headers to include an Access-Control-Allow-Origin
     def end_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")
         BaseHTTPRequestHandler.end_headers(self) # include self in arguments???
