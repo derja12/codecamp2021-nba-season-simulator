@@ -94,101 +94,30 @@ gameTeams = {
     }
 }
 
-function addWesternTeams() {
-    var westernDiv = document.querySelector("#western")
+function addWesternTeams() 
+{
+    
     var pacificDiv = document.querySelector("#pacific")
     var northwestDiv = document.querySelector("#northwest")
     var southwestDiv = document.querySelector("#southwest")
-    var GSWarriors = document.createElement("div")
-    var PSuns = document.createElement("div")
-    var UJazz = document.createElement("div")
-    var DMavericks = document.createElement("div")
-    var DNuggets = document.createElement("div")
-    var LAClippers = document.createElement("div")
-    var LALakers = document.createElement("div")
-    var MGrizzlies = document.createElement("div")
-    var SKings = document.createElement("div")
-    var PTrailBlazers = document.createElement("div")
-    var OCKThunder = document.createElement("div")
-    var SASpurs = document.createElement("div")
-    var MTimberwolves = document.createElement("div")
-    var HRockets = document.createElement("div")
-    var NOPelicans = document.createElement("div")
-    GSWarriors.id = "warriors"
-    GSWarriors.classList.add('team-div')
-    GSWarriors.innerHTML = "Golden State Warriors"
-    GSWarriors.onclick = function () {teamStats(GSWarriors)}
-    PSuns.id = "suns"
-    PSuns.classList.add('team-div')
-    PSuns.innerHTML = "Phenoix Suns"
-    PSuns.onclick = function () {teamStats(PSuns)}
-    UJazz.id = "jazz"
-    UJazz.classList.add('team-div')
-    UJazz.innerHTML = "Utah Jazz"
-    UJazz.onclick = function () {teamStats(UJazz)}
-    DMavericks.id = "mavericks"
-    DMavericks.classList.add('team-div')
-    DMavericks.innerHTML = "Dallas Mavericks"
-    DMavericks.onclick = function () {teamStats(DMavericks)}
-    DNuggets.id = "nuggets"
-    DNuggets.classList.add('team-div')
-    DNuggets.innerHTML = "Denver Nuggets"
-    DNuggets.onclick = function () {teamStats(DNuggets)}
-    LAClippers.id = "clippers"
-    LAClippers.classList.add('team-div')
-    LAClippers.innerHTML = "Los Angeles Clippers"
-    LAClippers.onclick = function () {teamStats(LAClippers)}
-    LALakers.id = "lakers"
-    LALakers.classList.add('team-div')
-    LALakers.innerHTML = "Los Angeles Lakers"
-    LALakers.onclick = function () {teamStats(LALakers)}
-    MGrizzlies.id = "grizzlies"
-    MGrizzlies.classList.add('team-div')
-    MGrizzlies.innerHTML = "Memphis Grizzlies"
-    MGrizzlies.onclick = function () {teamStats(MGrizzlies)}
-    SKings.id = "kings"
-    SKings.classList.add('team-div')
-    SKings.innerHTML = "Sacramento Kings"
-    SKings.onclick = function () {teamStats(SKings)}
-    PTrailBlazers.id = "trailblazers"
-    PTrailBlazers.classList.add('team-div')
-    PTrailBlazers.innerHTML = "Portland Trail Blazers"
-    PTrailBlazers.onclick = function () {teamStats(PTrailBlazers)}
-    OCKThunder.id = "thunder"
-    OCKThunder.classList.add('team-div')
-    OCKThunder.innerHTML = "Oaklahoma City Thunder"
-    OCKThunder.onclick = function () {teamStats(OCKThunder)}
-    SASpurs.id = "spurs"
-    SASpurs.classList.add('team-div')
-    SASpurs.innerHTML = "San Antonio Spurs"
-    SASpurs.onclick = function () {teamStats(SASpurs)}
-    MTimberwolves.id = "timberwolves"
-    MTimberwolves.classList.add('team-div')
-    MTimberwolves.innerHTML = "Minnesota Timberwolves"
-    MTimberwolves.onclick = function () {teamStats(MTimberwolves)}
-    HRockets.id = "rockets"
-    HRockets.classList.add('team-div')
-    HRockets.innerHTML = "Houston Rockets"
-    HRockets.onclick = function () {teamStats(HRockets)}
-    NOPelicans.id = "pelicans"
-    NOPelicans.classList.add('team-div')
-    NOPelicans.innerHTML = "New Orleans Pelicans"
-    NOPelicans.onclick = function () {teamStats(NOPelicans)}
-    southwestDiv.appendChild(DMavericks)
-    northwestDiv.appendChild(DNuggets)
-    pacificDiv.appendChild(GSWarriors)
-    southwestDiv.appendChild(HRockets)
-    pacificDiv.appendChild(LAClippers)
-    pacificDiv.appendChild(LALakers)
-    southwestDiv.appendChild(MGrizzlies)
-    northwestDiv.appendChild(MTimberwolves)
-    southwestDiv.appendChild(NOPelicans)
-    northwestDiv.appendChild(OCKThunder)
-    pacificDiv.appendChild(PSuns)
-    northwestDiv.appendChild(PTrailBlazers)
-    pacificDiv.appendChild(SKings)
-    southwestDiv.appendChild(SASpurs)
-    northwestDiv.appendChild(UJazz)
+
+    for (i = 0; i < teams.length; i++) {
+        team = teams[i]
+        var teamDiv = document.createElement("div")
+    
+        teamDiv.id = team["name"].toLowerCase();
+        teamDiv.classList.add('team-div');
+        teamDiv.innerHTML = team["city"] + " " + team["name"];
+        teamDiv.onclick = function () {teamStats(teamDiv)};
+
+        if (team["division"] == "Pacific") {
+            pacificDiv.appendChild(teamDiv);
+        } else if (team["division"] == "Northwest") {
+            northwestDiv.appendChild(teamDiv);
+        } else if (team["division"] == "Southwest") {
+            southwestDiv.appendChild(teamDiv);
+        }
+    }
 }
 
 /*
