@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
 
 var simulateButton = document.querySelector("#simulate")
@@ -12,6 +11,7 @@ function simulateSeason()
 
 function addWesternTeams()
 {
+    var westernDiv = document.querySelector("western")
     var GSWarriors = document.createElement("div")
     var PSuns = document.createElement("div")
     var UJazz = document.createElement("div")
@@ -57,6 +57,23 @@ function addWesternTeams()
     HRockets.classList.add('team-div')
     NOPelicans.id = "pelicans"
     NOPelicans.classList.add('team-div')
+    westernDiv.appendChild(GSWarriors)
+    westernDiv.appendChild(PSuns)
+    westernDiv.appendChild(UJazz)
+    westernDiv.appendChild(DNuggets)
+    westernDiv.appendChild(LAClippers)
+    westernDiv.appendChild(LALakers)
+    westernDiv.appendChild(MGrizzlies)
+    westernDiv.appendChild(SKings)
+    westernDiv.appendChild(PTrailBlazers)
+    westernDiv.appendChild(OCKThunder)
+    westernDiv.appendChild(SASpurs)
+    westernDiv.appendChild(MTimberwolves)
+    westernDiv.appendChild(HRockets)
+    westernDiv.appendChild(DMavericks)
+    westernDiv.appendChild(NOPelicans)
+
+    
 
 
 }
@@ -111,15 +128,12 @@ function addEasternTeams()
 
 
 }
-=======
-=======
 var simulateButton = document.querySelector("#simulate")
 
 simulateButton.onclick = simulateSeason;
 function simulateSeason() {
 
 }
->>>>>>> 61c5a87a3f8517dd1ad046f04a8a4fee240c96ff
 
 /*
 
@@ -136,7 +150,3 @@ onSimulateButtonClicked():
 
 
 */
->>>>>>> 05cddde5c3da156ef59184135f68d89331c8b144
-=======
-*/
->>>>>>> 61c5a87a3f8517dd1ad046f04a8a4fee240c96ff
