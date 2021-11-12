@@ -1,3 +1,27 @@
+gameTeams = {
+    "warriors": {
+        "stats": 550
+    },
+    "suns": {
+        "stats": 200
+    },
+    "jazz": {
+        "stats": 700
+    },
+    "mavericks": {
+        "stats": 300
+    },
+    "nuggets": {
+        "stats": 475
+    },
+    "clippers": {
+        "stats": 340
+    },
+    "lakers": {
+        "stats": 180
+    }
+}
+
 var simulateButton = document.querySelector("#simulate")
 
 simulateButton.onclick = simulateSeason;
@@ -139,6 +163,29 @@ simulateButton.onclick = simulateSeason;
 function simulateSeason() {
 
 }
+
+function calculateGame(leftTeamID, rightTeamID) {
+    var total = gameTeams[leftTeamID]["stats"] + gameTeams[rightTeamID]["stats"]
+    var onePercent = total / 100
+
+    var percent1 = gameTeams[leftTeamID]["stats"] / onePercent
+    var percent2 = gameTeams[rightTeamID]["stats"] / onePercent
+
+    console.log(percent1, percent2)
+
+    var winPercentPoint = Math.floor(Math.random() * 100);
+
+    console.log(winPercentPoint)
+    if (winPercentPoint < 100 - percent2) {
+        teamWon = leftTeamID
+    } else {
+        teamWon = rightTeamID
+    }
+
+    return teamWon
+}
+
+console.log(calculateGame("warriors", "jazz"));
 
 /*
 
