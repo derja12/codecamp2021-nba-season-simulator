@@ -95,15 +95,6 @@ gameTeams = {
 addWesternTeams()
 addEasternTeams()
 
-
-
-var simulateButton = document.querySelector("#simulate")
-
-simulateButton.onclick = simulateSeason;
-function simulateSeason() {
-
-}
-
 function addWesternTeams() {
     var westernDiv = document.querySelector("#western")
     var GSWarriors = document.createElement("div")
@@ -268,31 +259,38 @@ var simulateButton = document.querySelector("#simulate")
 
 simulateButton.onclick = simulateSeason;
 function simulateSeason() {
-
+    console.log(calculateGame("warriors", "jazz"));
+    gameTeams["warriors"]["stats"] = calculateScore(warriors_stats_temp);
+    gameTeams["jazz"]["stats"] = calculateScore(jazz_stats_temp);
+    console.log(calculateGame("warriors", "jazz"));
 }
+
+// points, field-goal-percentage, free-throw-percentage, 3-point-percentage, assists, rebounds
+/*
+
+weight: 
+    points: 20%
+    field-goal-percentage: 20%
+    free-throw-percentage: 10%
+    3-point-percentage: 20%
+    assists: 15%
+    rebounds: 15%
+*/
+
+
 
 function calculateGame(leftTeamID, rightTeamID) {
-    var total = gameTeams[leftTeamID]["stats"] + gameTeams[rightTeamID]["stats"]
-    var onePercent = total / 100
-
-    var percent1 = gameTeams[leftTeamID]["stats"] / onePercent
-    var percent2 = gameTeams[rightTeamID]["stats"] / onePercent
-
-    console.log(percent1, percent2)
-
+    var total = gameTeams[leftTeamID]["stats"] + gameTeams[rightTeamID]["stats"];
+    var onePercent = total / 100;
+    var percentThresh = gameTeams[rightTeamID]["stats"] / onePercent;
     var winPercentPoint = Math.floor(Math.random() * 100);
-
-    console.log(winPercentPoint)
-    if (winPercentPoint < 100 - percent2) {
-        teamWon = leftTeamID
+    if (winPercentPoint < 100 - percentThresh) {
+        teamWon = leftTeamID;
     } else {
-        teamWon = rightTeamID
+        teamWon = rightTeamID;
     }
-
-    return teamWon
+    return teamWon;
 }
-
-console.log(calculateGame("warriors", "jazz"));
 
 /*
 
