@@ -42,7 +42,7 @@ h1 {
 {
     grid-column: 1 / 1;
     grid-row: 2 / 2;
-    text-align: center;
+    text-align: left;
     text-transform: capitalize;
     margin-top: 1px;
     border-top: 4px solid royalblue;
@@ -51,7 +51,7 @@ h1 {
 
 #eastern 
 {
-    text-align: center;
+    text-align: left;
     grid-column: 2 / 2;
     grid-row: 2 / 2;
     margin-top: 1px;
@@ -72,15 +72,6 @@ h1 {
 
 }
 
-.team-div
-{
-    display: grid;
-    height: auto;
-    margin-top: 8px;
-    font-weight: normal;
-    font-size: medium;
-}
-
 .division
 {
     margin-top: 10px;
@@ -93,10 +84,11 @@ h1 {
 .logos
 {
     height: 50px;
-    width: 50px;
-    grid-row: 2 / 2;
+    width: auto;
+    grid-column: 2 / 4;
     margin-bottom: 5px;
-    margin-left: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #after-simulation-screen 
@@ -107,4 +99,58 @@ h1 {
     width: auto;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+.team-div
+{
+    display: grid;
+    height: auto;
+    margin-top: 8px;
+    font-weight: normal;
+    font-size: medium;
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: auto auto auto auto;
+    display: grid;
+}
+
+#teamFieldGoal
+{
+    font-size: small;
+    grid-row: 3;
+}
+
+#teamoverall
+{
+    font-size: small;
+    grid-row: 2;
+}
+
+#teamFreeThrow
+{
+    font-size: small;
+    grid-row: 2;
+}
+
+#team3point
+{
+    font-size: small;
+    grid-row: 3;
+}
+
+#teamPoints
+{
+    font-size: small;
+    grid-row: 2;
+}
+
+#teamAssists
+{
+    font-size: small;
+    grid-row: 2;
+}
+
+#teamRebound
+{
+    font-size: small;
+    grid-row: 3;
 }

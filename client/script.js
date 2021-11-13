@@ -150,7 +150,7 @@ function addEasternTeams(teams) {
         teamDiv.classList.add('team-div');
         teamDiv.innerHTML = team["city"] + " " + team["name"];
         teamDiv.onclick = function () {teamStats(teamDiv)};
-
+        OPENED_TEAMS[team["name"]] = false;
         if (team["division"] == "Southeast") {
             southeastDiv.appendChild(teamDiv);
         } else if (team["division"] == "Central") {
@@ -165,39 +165,42 @@ function addEasternTeams(teams) {
 function teamStats(team)
 {
     console.log("Team Stats clicked")
-    var img = document.createElement("img")
-    img.classList.add("logos")
-    img.src = "../images/" + team.id + ".png"
-    var teamOverall = document.createElement('p')
-    var teamFieldGoal = document.createElement('p')
-    var teamFreeThrow = document.createElement('p')
-    var teamPoint = document.createElement('p')
-    var team3point = document.createElement('p')
-    var teamAssists = document.createElement('p')
-    var teamRebounds = document.createElement('p')
-    teamOverall.id = "teamoverall"
-    teamFieldGoal.id = "teamFieldGoal"
-    teamFreeThrow.id = "teamFreeThrow"
-    teamPoint.id = "teamPoints"
-    team3point.id = "team3point"
-    teamAssists.id = "teamAssists"
-    teamRebounds.id = "teamRebound"
-    teamOverall.innerHTML = "Team Rating:" 
-    teamFieldGoal.innerHTML = "FG %:"
-    teamFreeThrow.innerHTML = "FT %:"
-    teamPoint.innerHTML = "Points:"
-    team3point.innerHTML = "3-Pt %:"
-    teamAssists.innerHTML = "Assists:"
-    teamRebounds.innerHTML = "Rebounds:"
-    team.appendChild(img);
-    team.appendChild(teamOverall)
-    team.appendChild(teamFreeThrow)
-    team.appendChild(teamPoint)
-    team.appendChild(teamAssists)
-    team.appendChild(teamRebounds)
-    team.appendChild(team3point)
-    team.appendChild(teamFieldGoal)
-
+<<<<<<< Updated upstream
+    if (OPENED_TEAMS[team["name"]] == false)
+    {
+        var img = document.createElement("img")
+        img.classList.add("logos")
+        img.src = "../images/" + team.id + ".png"
+        var teamOverall = document.createElement('p')
+        var teamFieldGoal = document.createElement('p')
+        var teamFreeThrow = document.createElement('p')
+        var teamPoint = document.createElement('p')
+        var team3point = document.createElement('p')
+        var teamAssists = document.createElement('p')
+        var teamRebounds = document.createElement('p')
+        teamOverall.id = "teamoverall"
+        teamFieldGoal.id = "teamFieldGoal"
+        teamFreeThrow.id = "teamFreeThrow"
+        teamPoint.id = "teamPoints"
+        team3point.id = "team3point"
+        teamAssists.id = "teamAssists"
+        teamRebounds.id = "teamRebound"
+        teamOverall.innerHTML = "Team Rating:" 
+        teamFieldGoal.innerHTML = "FG %:"
+        teamFreeThrow.innerHTML = "FT %:"
+        teamPoint.innerHTML = "Points:"
+        team3point.innerHTML = "3-Pt %:"
+        teamAssists.innerHTML = "Assists:"
+        teamRebounds.innerHTML = "Rebounds:"
+        team.appendChild(img);
+        team.appendChild(teamOverall)
+        team.appendChild(teamFreeThrow)
+        team.appendChild(teamPoint)
+        team.appendChild(teamAssists)
+        team.appendChild(teamRebounds)
+        team.appendChild(team3point)
+        team.appendChild(teamFieldGoal)
+    }
     
 }
 var simulateButton = document.querySelector("#simulate")
