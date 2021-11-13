@@ -7,7 +7,7 @@ getTeamInfo();
 
 gameTeams = {
     "warriors": {
-        "stats": 550
+        "overallRating": 550
     },
     "suns": {
         "stats": 200
@@ -98,9 +98,7 @@ gameTeams = {
     }
 }
 
-function addWesternTeams(teams) 
-{
-
+function addWesternTeams(teams) {
     var pacificDiv = document.querySelector("#pacific")
     var northwestDiv = document.querySelector("#northwest")
     var southwestDiv = document.querySelector("#southwest")
@@ -126,19 +124,18 @@ function addWesternTeams(teams)
 /*
 [
     {
-        "id": 1632525235325,
+        "id": 1610612754,
         "name": "Hawks",
         "city": "Atlanta",
-        "abbreviation":,
-        "conference":,
-        "division":,
+        "abbreviation": "ATL",
+        "conference": "East",
+        "division": "Southeast",
     },
-
+    ...
 ]
 */
 
 function addEasternTeams(teams) {
-
     var atlanticDiv = document.querySelector("#atlantic")
     var centralDiv = document.querySelector("#central")
     var southeastDiv = document.querySelector("#southeast")
@@ -160,51 +157,46 @@ function addEasternTeams(teams) {
         }
     });
 }
-
     
-function teamStats(team)
-{
+function teamStats(team) {
     console.log("Team Stats clicked")
-<<<<<<< Updated upstream
-    if (OPENED_TEAMS[team["name"]] == false)
-    {
-        var img = document.createElement("img")
-        img.classList.add("logos")
-        img.src = "../images/" + team.id + ".png"
-        var teamOverall = document.createElement('p')
-        var teamFieldGoal = document.createElement('p')
-        var teamFreeThrow = document.createElement('p')
-        var teamPoint = document.createElement('p')
-        var team3point = document.createElement('p')
-        var teamAssists = document.createElement('p')
-        var teamRebounds = document.createElement('p')
-        teamOverall.id = "teamoverall"
-        teamFieldGoal.id = "teamFieldGoal"
-        teamFreeThrow.id = "teamFreeThrow"
-        teamPoint.id = "teamPoints"
-        team3point.id = "team3point"
-        teamAssists.id = "teamAssists"
-        teamRebounds.id = "teamRebound"
-        teamOverall.innerHTML = "Team Rating:" 
-        teamFieldGoal.innerHTML = "FG %:"
-        teamFreeThrow.innerHTML = "FT %:"
-        teamPoint.innerHTML = "Points:"
-        team3point.innerHTML = "3-Pt %:"
-        teamAssists.innerHTML = "Assists:"
-        teamRebounds.innerHTML = "Rebounds:"
+    if (OPENED_TEAMS[team["name"]] == false) {
+        var img = document.createElement("img");
+        img.classList.add("logos");
+        img.src = "../images/" + team.id + ".png";
+        var teamOverall = document.createElement('p');
+        var teamFieldGoal = document.createElement('p');
+        var teamFreeThrow = document.createElement('p');
+        var teamPoint = document.createElement('p');
+        var team3point = document.createElement('p');
+        var teamAssists = document.createElement('p');
+        var teamRebounds = document.createElement('p');
+        teamOverall.id = "teamoverall";
+        teamFieldGoal.id = "teamFieldGoal";
+        teamFreeThrow.id = "teamFreeThrow";
+        teamPoint.id = "teamPoints";
+        team3point.id = "team3point";
+        teamAssists.id = "teamAssists";
+        teamRebounds.id = "teamRebound";
+        teamOverall.innerHTML = "Team Rating:" ;
+        teamFieldGoal.innerHTML = "FG %:";
+        teamFreeThrow.innerHTML = "FT %:";
+        teamPoint.innerHTML = "Points:";
+        team3point.innerHTML = "3-Pt %:";
+        teamAssists.innerHTML = "Assists:";
+        teamRebounds.innerHTML = "Rebounds:";
         team.appendChild(img);
-        team.appendChild(teamOverall)
-        team.appendChild(teamFreeThrow)
-        team.appendChild(teamPoint)
-        team.appendChild(teamAssists)
-        team.appendChild(teamRebounds)
-        team.appendChild(team3point)
-        team.appendChild(teamFieldGoal)
+        team.appendChild(teamOverall);
+        team.appendChild(teamFreeThrow);
+        team.appendChild(teamPoint);
+        team.appendChild(teamAssists);
+        team.appendChild(teamRebounds);
+        team.appendChild(team3point);
+        team.appendChild(teamFieldGoal);
     }
-    
 }
-var simulateButton = document.querySelector("#simulate")
 
+var simulateButton = document.querySelector("#simulate")
 simulateButton.onclick = simulateSeason;
 
 function simulateSeason() {
@@ -236,6 +228,22 @@ weight:
     rebounds: 15%
 */
 
+function calculateOverallRating(teams) {
+    teams.forEach(team => {
+        total = 0;
+        total += team["ppg"] * Math.log(team["ppg"]);
+        total -= 0.75*team["oppg"] * Math.log(team["oppg"]);
+        total += 50 * team["fg_pct"];
+        total += 10 * team["ft_pct"];
+        total += 30 * team["fg3_pct"];
+        total += 0.8125 * team["ast"];
+        total += 0.35 * team["reb"];
+        total *= 3.333
+        console.log(total);
+    });
+}
+
+getTeamStats();
 
 function calculateGame(leftTeamID, rightTeamID) {
     var total = gameTeams[leftTeamID]["stats"] + gameTeams[rightTeamID]["stats"];
@@ -244,7 +252,6 @@ function calculateGame(leftTeamID, rightTeamID) {
     var winPercentPoint = Math.floor(Math.random() * 100);
     if (winPercentPoint < 100 - percentThresh) {
         teamWon = leftTeamID;
-
     } else {
         teamWon = rightTeamID;
     }
@@ -302,6 +309,17 @@ function getTeamInfo() {
             addWesternTeams(team_array);
             addEasternTeams(team_array);
             createSchedule(team_array);
+        });
+    });
+}
+
+function getTeamStats() {
+    fetch("http://localhost:8080/stats", {
+        method: "GET"
+    }).then(function (response) {
+        response.json().then(function (team_array) {
+            console.log(team_array);
+            calculateOverallRating(team_array)
         });
     });
 }

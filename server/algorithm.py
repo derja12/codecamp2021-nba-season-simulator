@@ -11,7 +11,7 @@ jazz_stats_temp = {
 
 # teamStats has 6 keys (points, FG-pct, FT-pct, 3PT-pct, assists, rebounds) as shown in above example
 # returns score somewhere between 0 and 1000 (possibly above 1000, but UNLIKELY!)
-def calculateScore(teamStats)
+def calculateScore(teamStats):
     totalScore = 0
 
     POINTS_WORTH = 200
