@@ -1,3 +1,36 @@
+NAME_TO_CONFERENCE = {
+    "warriors": "west",
+    "suns": "west",
+    "jazz": "west",
+    "mavericks": "west",
+    "nuggets": "west",
+    "clippers": "west",
+    "grizzlies": "west",
+    "kings": "west",
+    "trail blazers": "west",
+    "thunder": "west",
+    "spurs": "west",
+    "timberwolves": "west",
+    "rockets": "west",
+    "pelicans": "west",
+    "wizards": "east",
+    "bulls": "east",
+    "nets": "east",
+    "76ers": "east",
+    "cavaliers": "east",
+    "heat": "east",
+    "raptors": "east",
+    "bucks": "east",
+    "hornets": "east",
+    "celtics": "east",
+    "pacers": "east",
+    "hawks": "east",
+    "magic": "east",
+    "pistons": "east",
+    "knicks": "east",
+    "lakers": "west"
+}
+
 TEAM_ARRAY = {}
 SCHEDULE_COUNTS = {}
 SCHEDULE = []
@@ -179,93 +212,106 @@ function addEasternTeams(teams) {
 }
     
 function teamStats(team) {
-    console.log("Team Stats clicked")
-    
+
+    tID = NAME_TO_ID[team.id]
+    tName = team.id.split(" ")[0]
+    stats_object = {}
+    TEAM_ARRAY.forEach(teamObject => {
+        if (teamObject["id"] == tID) {
+            stats_object = teamObject
+        }
+    });
+
     if (OPENED_TEAMS[team.id] == false)
     {
         var img = document.createElement("img")
-        img.id = "logo"
+        img.id = "logo" + tName
         img.classList.add("logos")
-        img.src = "../images/" + team.id + ".png"
+        img.src = "../images/" + tName + ".png"
         var teamPointsGiven = document.createElement('p')
-        var teamPTSGivenInput = document.createElement('input')
-        teamPTSGivenInput.classList.add('statInputs')
+        // var teamPTSGivenInput = document.createElement('input')
+        // teamPTSGivenInput.classList.add('statInputs')
         var teamFieldGoal = document.createElement('p')
-        var teamFGInput = document.createElement('input')
-        teamFGInput.classList.add('statInputs')
+        // var teamFGInput = document.createElement('input')
+        // teamFGInput.classList.add('statInputs')
         var teamFreeThrow = document.createElement('p')
-        var teamFTInput = document.createElement('input')
-        teamFTInput.classList.add('statInputs')
+        // var teamFTInput = document.createElement('input')
+        // teamFTInput.classList.add('statInputs')
         var teamPtsFor = document.createElement('p')
-        var teamPtsForInput = document.createElement('input')
-        teamPtsForInput.classList.add('statInputs')
+        // var teamPtsForInput = document.createElement('input')
+        // teamPtsForInput.classList.add('statInputs')
         var team3point = document.createElement('p')
-        var team3PTInput = document.createElement('input')
-        team3PTInput.classList.add('statInputs')
+        // var team3PTInput = document.createElement('input')
+        // team3PTInput.classList.add('statInputs')
         var teamAssists = document.createElement('p')
-        var teamASTInput = document.createElement('input')
-        teamASTInput.classList.add('statInputs')
+        // var teamASTInput = document.createElement('input')
+        // teamASTInput.classList.add('statInputs')
         var teamRebounds = document.createElement('p')
-        var teamRebInput = document.createElement('input')
-        teamRebInput.classList.add('statInputs')
-        teamPointsGiven.id = "teamPPGA"
-        teamFieldGoal.id = "teamFieldGoal"
-        teamFreeThrow.id = "teamFreeThrow"
-        teamPtsFor.id = "teamPTSfor"
-        team3point.id = "team3point"
-        teamAssists.id = "teamAssists"
-        teamRebounds.id = "teamRebound"
-        teamPTSGivenInput.id = "PTSGinput"
-        teamFGInput.id = "FGinput"
-        teamFTInput.id = "FTinput"
-        teamPtsForInput.id = "PTSFinput"
-        team3PTInput.id = "PT3input"
-        teamASTInput.id = "ASTinput"
-        teamRebInput.id = "REBinput"
-        teamPointsGiven.innerHTML = "Points Against:" 
-        teamFieldGoal.innerHTML = "FG %:"
-        teamFreeThrow.innerHTML = "FT %:"
-        teamPtsFor.innerHTML = "Points For:"
-        team3point.innerHTML = "3-Pt %:"
-        teamAssists.innerHTML = "Assists:"
-        teamRebounds.innerHTML = "Rebounds:"
+        // var teamRebInput = document.createElement('input')
+        // teamRebInput.classList.add('statInputs')
+        // teamPtsForInput.classList.add('statInputs')
+        // teamPTSGivenInput.classList.add('statInputs')
+        // team3PTInput.classList.add('statInputs')
+        // teamASTInput.classList.add('statInputs')
+        teamPointsGiven.id = "teamPPGA" + tName
+        teamFieldGoal.id = "teamFieldGoal"+ tName
+        teamFreeThrow.id = "teamFreeThrow"+ tName
+        teamPtsFor.id = "teamPTSfor"+ tName
+        team3point.id = "team3point"+ tName
+        teamAssists.id = "teamAssists"+ tName
+        teamRebounds.id = "teamRebound"+ tName
+        // teamPTSGivenInput.id = "PTSGinput"+ team.id
+        // teamFGInput.id = "FGinput"+ team.id
+        // teamFTInput.id = "FTinput"+ team.id
+        // teamPtsForInput.id = "PTSFinput"+ team.id
+        // team3PTInput.id = "PT3input"+ team.id
+        // teamASTInput.id = "ASTinput"+ team.id
+        // teamRebInput.id = "REBinput"+ team.id
+        teamPointsGiven.innerHTML = "Points Against: " + Math.round(stats_object["oppg"])
+        teamFieldGoal.innerHTML = "FG: " + Math.round(stats_object["fg_pct"]*100) + "%"
+        teamFreeThrow.innerHTML = "FT: " + Math.round(stats_object["ft_pct"]*100) + "%"
+        teamPtsFor.innerHTML = "Points For: " + Math.round(stats_object["ppg"])
+        team3point.innerHTML = "3-Pt: " + Math.round(stats_object["fg3_pct"]*100) + "%"
+        teamAssists.innerHTML = "Assists: " + Math.round(stats_object["ast"])
+        teamRebounds.innerHTML = "Rebounds: " + Math.round(stats_object["reb"])
         team.appendChild(img)
         team.appendChild(teamPointsGiven)
-        team.appendChild(teamPTSGivenInput)
+        // team.appendChild(teamPTSGivenInput)
         team.appendChild(teamFreeThrow)
-        team.appendChild(teamFTInput)
+        // team.appendChild(teamFTInput)
         team.appendChild(teamPtsFor)
-        team.appendChild(teamPtsForInput)
+        // team.appendChild(teamPtsForInput)
         team.appendChild(teamAssists)
-        team.appendChild(teamASTInput)
+        // team.appendChild(teamASTInput)
         team.appendChild(teamRebounds)
-        team.appendChild(teamRebInput)
+        // team.appendChild(teamRebInput)
         team.appendChild(team3point)
-        team.appendChild(team3PTInput)
+        // team.appendChild(team3PTInput)
         team.appendChild(teamFieldGoal)
-        team.appendChild(teamFGInput)
+        // team.appendChild(teamFGInput)
 
         OPENED_TEAMS[team.id.toLowerCase()] = true;
     }
     else if (OPENED_TEAMS[team.id.toLowerCase()] == true)
     {
-        document.querySelector("#teamPPGA").remove()
-        document.querySelector("#teamFieldGoal").remove()
-        document.querySelector("#teamFreeThrow").remove()
-        document.querySelector("#teamPTSfor").remove()
-        document.querySelector("#team3point").remove()
-        document.querySelector("#teamAssists").remove()
-        document.querySelector("#teamRebound").remove()
-        document.querySelector("#PTSGinput").remove()
-        document.querySelector("#FGinput").remove()
-        document.querySelector("#FTinput").remove()
-        document.querySelector("#PTSFinput").remove()
-        document.querySelector("#PT3input").remove()
-        document.querySelector("#ASTinput").remove()
-        document.querySelector("#REBinput").remove()
-        document.querySelector("#logo").remove()
+        console.log("#teamPPGA"+ tName)
+        document.querySelector("#teamPPGA"+ tName).remove()
+        document.querySelector("#teamFieldGoal"+ tName).remove()
+        document.querySelector("#teamFreeThrow"+ tName).remove()
+        document.querySelector("#teamPTSfor"+ tName).remove()
+        document.querySelector("#team3point"+ tName).remove()
+        document.querySelector("#teamAssists"+ tName).remove()
+        document.querySelector("#teamRebound"+ tName).remove()
+        // document.querySelector("#PTSGinput"+ team.id).remove()
+        // document.querySelector("#FGinput"+ team.id).remove()
+        // document.querySelector("#FTinput"+ team.id).remove()
+        // document.querySelector("#PTSFinput"+ team.id).remove()
+        // document.querySelector("#PT3input"+ team.id).remove()
+        // document.querySelector("#ASTinput"+ team.id).remove()
+        // document.querySelector("#REBinput"+ team.id).remove()
+        document.querySelector("#logo"+ tName).remove()
 
-        OPENED_TEAMS[team.id.toLowerCase()] = false;
+        OPENED_TEAMS[tName.toLowerCase()] = false;
     }
 }
 
@@ -298,9 +344,28 @@ function simulateSeason()
     for (let teamName in TEAM_WIN_LOSS) {
         win = TEAM_WIN_LOSS[teamName]["wins"];
         loss = TEAM_WIN_LOSS[teamName]["losses"];
-        ratio = win/loss;
-        
+        ratio = loss/win;
+        if (NAME_TO_CONFERENCE[teamName] == "west") {
+            WestRatioSort.push(ratio.toString() + " " + teamName);
+        } else if (NAME_TO_CONFERENCE[teamName] == "east") {
+            EastRatioSort.push(ratio.toString() + " " + teamName);
+        }
     }
+    standingsWest = [];
+    WestRatioSort.sort();
+    WestRatioSort.forEach(ratio => {
+        standingsWest.push(ratio.split(" ")[1]);
+    });
+    console.log(standingsWest);
+
+    standingsEast = [];
+    EastRatioSort.sort();
+    EastRatioSort.forEach(ratio => {
+        standingsEast.push(ratio.split(" ")[1]);
+    });
+    console.log(standingsEast);
+    
+
 
     var championDiv = document.createElement('div')
     var standingsDiv = document.createElement('div')
@@ -315,12 +380,90 @@ function simulateSeason()
     var westDiv = document.createElement('div')
     var eastDiv = document.createElement('div')
     var overallDiv = document.createElement('div')
+    var westText = document.createElement('div')
+    var eastText = document.createElement('div')
     westDiv.id = "westStandings"
-    westDiv.innerHTML = "WESTERN STANDINGS"
+    westText.innerHTML = "WESTERN STANDINGS"
+    westText.id = "west-text"
     eastDiv.id = "eastStandings"
-    eastDiv.innerHTML = "EASTERN STANDINGS"
+    eastText.innerHTML = "EASTERN STANDINGS"
+    eastText.id = "east-text"
     overallDiv.id = "overallStandings"
     overallDiv.innerHTML = "LEAGUE CHAMPION"
+    var img1 = document.createElement("img")
+    img1.id = "champion-trophy1"
+    img1.src = "../images/trophy.png"
+
+    var img2 = document.createElement("img")
+    img2.id = "champion-trophy2"
+    img2.src = "../images/trophy.png"
+
+    overallDiv.appendChild(img1)
+    overallDiv.appendChild(img2)
+
+    westDiv.appendChild(westText)
+    eastDiv.appendChild(eastText)
+
+    standingsWest.forEach(teamName => {
+        teamDiv = document.createElement("li");
+        if (teamName == "trail") {
+            teamName = "trail blazers"
+        }
+        teamDiv.innerHTML = teamName;
+        teamDiv.classList.add("team-standings-div")
+        westDiv.appendChild(teamDiv);
+    });
+    standingsEast.forEach(teamName => {
+        teamDiv = document.createElement("li");
+        teamDiv.classList.add("team-standings-div")
+        teamDiv.innerHTML = teamName;
+        eastDiv.appendChild(teamDiv);
+    });
+
+    // WEST FIGHTS
+
+    // FIGHT 1
+
+    westOneWinner = calculateGame(standingsWest[0],standingsWest[7]);
+    westTwoWinner = calculateGame(standingsWest[1],standingsWest[6]);
+    westThreeWinner = calculateGame(standingsWest[2],standingsWest[5]);
+    westFourWinner = calculateGame(standingsWest[3],standingsWest[4]);
+
+    westFiveWinner = calculateGame(westOneWinner,westFourWinner);
+    westSixWinner = calculateGame(westTwoWinner,westThreeWinner);
+
+    westFinalist = calculateGame(westFiveWinner, westSixWinner);
+
+    console.log(westFinalist);
+
+    eastOneWinner = calculateGame(standingsEast[0],standingsEast[7]);
+    eastTwoWinner = calculateGame(standingsEast[1],standingsEast[6]);
+    eastThreeWinner = calculateGame(standingsEast[2],standingsEast[5]);
+    eastFourWinner = calculateGame(standingsEast[3],standingsEast[4]);
+
+    eastFiveWinner = calculateGame(eastOneWinner,eastFourWinner);
+    eastSixWinner = calculateGame(eastTwoWinner,eastThreeWinner);
+
+    eastFinalist = calculateGame(eastFiveWinner, eastSixWinner);
+
+    console.log(eastFinalist);
+
+    Champion = calculateGame(westFinalist, eastFinalist);
+    championDiv = document.createElement("div")
+    championDiv.innerHTML = Champion
+    championDiv.id = "champion1";
+
+    var img1 = document.createElement("img")
+    img1.id = "champion-logo1"
+    img1.src = "../images/" + Champion + ".png"
+
+    var img = document.createElement("img")
+    img.id = "champion-logo2"
+    img.src = "../images/" + Champion + ".png"
+
+    overallDiv.appendChild(championDiv)
+    overallDiv.appendChild(img)
+    overallDiv.appendChild(img1)
     standingsDiv.appendChild(westDiv)
     standingsDiv.appendChild(eastDiv)
     playoffDiv.appendChild(overallDiv)
@@ -514,7 +657,6 @@ function calculateOverallRating(teams) {
     });
     //console.log(TEAM_RATING);
 }
-getTeamStats();
 
 function calculateGame(leftTeam, rightTeam) {
     leftTeamID = NAME_TO_ID[leftTeam];
@@ -699,7 +841,6 @@ function getTeamInfo() {
         method: "GET"
     }).then(function (response) {
         response.json().then(function (team_array) {
-            TEAM_ARRAY = team_array;
             //console.log(team_array);
             addWesternTeams(team_array);
             addEasternTeams(team_array);
@@ -718,6 +859,7 @@ function getTeamStats() {
     }).then(function (response) {
         response.json().then(function (team_array) {
             //console.log(team_array);
+            TEAM_ARRAY = team_array;
             calculateOverallRating(team_array)
         });
     });
