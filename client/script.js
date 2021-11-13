@@ -179,40 +179,93 @@ function addEasternTeams(teams) {
 }
     
 function teamStats(team) {
-    //console.log("Team Stats clicked")
-    if (!OPENED_TEAMS[team.id]) {
-        var img = document.createElement("img");
-        img.classList.add("logos");
-        img.src = "../images/" + team.id + ".png";
-        var teamOverall = document.createElement('p');
-        var teamFieldGoal = document.createElement('p');
-        var teamFreeThrow = document.createElement('p');
-        var teamPoint = document.createElement('p');
-        var team3point = document.createElement('p');
-        var teamAssists = document.createElement('p');
-        var teamRebounds = document.createElement('p');
-        teamOverall.id = "teamoverall";
-        teamFieldGoal.id = "teamFieldGoal";
-        teamFreeThrow.id = "teamFreeThrow";
-        teamPoint.id = "teamPoints";
-        team3point.id = "team3point";
-        teamAssists.id = "teamAssists";
-        teamRebounds.id = "teamRebound";
-        teamOverall.innerHTML = "Team Rating:" ;
-        teamFieldGoal.innerHTML = "FG %:";
-        teamFreeThrow.innerHTML = "FT %:";
-        teamPoint.innerHTML = "Points:";
-        team3point.innerHTML = "3-Pt %:";
-        teamAssists.innerHTML = "Assists:";
-        teamRebounds.innerHTML = "Rebounds:";
-        team.appendChild(img);
-        team.appendChild(teamOverall);
-        team.appendChild(teamFreeThrow);
-        team.appendChild(teamPoint);
-        team.appendChild(teamAssists);
-        team.appendChild(teamRebounds);
-        team.appendChild(team3point);
-        team.appendChild(teamFieldGoal);
+    console.log("Team Stats clicked")
+    
+    if (OPENED_TEAMS[team.id] == false)
+    {
+        var img = document.createElement("img")
+        img.id = "logo"
+        img.classList.add("logos")
+        img.src = "../images/" + team.id + ".png"
+        var teamPointsGiven = document.createElement('p')
+        var teamPTSGivenInput = document.createElement('input')
+        teamPTSGivenInput.classList.add('statInputs')
+        var teamFieldGoal = document.createElement('p')
+        var teamFGInput = document.createElement('input')
+        teamFGInput.classList.add('statInputs')
+        var teamFreeThrow = document.createElement('p')
+        var teamFTInput = document.createElement('input')
+        teamFTInput.classList.add('statInputs')
+        var teamPtsFor = document.createElement('p')
+        var teamPtsForInput = document.createElement('input')
+        teamPtsForInput.classList.add('statInputs')
+        var team3point = document.createElement('p')
+        var team3PTInput = document.createElement('input')
+        team3PTInput.classList.add('statInputs')
+        var teamAssists = document.createElement('p')
+        var teamASTInput = document.createElement('input')
+        teamASTInput.classList.add('statInputs')
+        var teamRebounds = document.createElement('p')
+        var teamRebInput = document.createElement('input')
+        teamRebInput.classList.add('statInputs')
+        teamPointsGiven.id = "teamPPGA"
+        teamFieldGoal.id = "teamFieldGoal"
+        teamFreeThrow.id = "teamFreeThrow"
+        teamPtsFor.id = "teamPTSfor"
+        team3point.id = "team3point"
+        teamAssists.id = "teamAssists"
+        teamRebounds.id = "teamRebound"
+        teamPTSGivenInput.id = "PTSGinput"
+        teamFGInput.id = "FGinput"
+        teamFTInput.id = "FTinput"
+        teamPtsForInput.id = "PTSFinput"
+        team3PTInput.id = "PT3input"
+        teamASTInput.id = "ASTinput"
+        teamRebInput.id = "REBinput"
+        teamPointsGiven.innerHTML = "Points Against:" 
+        teamFieldGoal.innerHTML = "FG %:"
+        teamFreeThrow.innerHTML = "FT %:"
+        teamPtsFor.innerHTML = "Points For:"
+        team3point.innerHTML = "3-Pt %:"
+        teamAssists.innerHTML = "Assists:"
+        teamRebounds.innerHTML = "Rebounds:"
+        team.appendChild(img)
+        team.appendChild(teamPointsGiven)
+        team.appendChild(teamPTSGivenInput)
+        team.appendChild(teamFreeThrow)
+        team.appendChild(teamFTInput)
+        team.appendChild(teamPtsFor)
+        team.appendChild(teamPtsForInput)
+        team.appendChild(teamAssists)
+        team.appendChild(teamASTInput)
+        team.appendChild(teamRebounds)
+        team.appendChild(teamRebInput)
+        team.appendChild(team3point)
+        team.appendChild(team3PTInput)
+        team.appendChild(teamFieldGoal)
+        team.appendChild(teamFGInput)
+
+        OPENED_TEAMS[team.id.toLowerCase()] = true;
+    }
+    else if (OPENED_TEAMS[team.id.toLowerCase()] == true)
+    {
+        document.querySelector("#teamPPGA").remove()
+        document.querySelector("#teamFieldGoal").remove()
+        document.querySelector("#teamFreeThrow").remove()
+        document.querySelector("#teamPTSfor").remove()
+        document.querySelector("#team3point").remove()
+        document.querySelector("#teamAssists").remove()
+        document.querySelector("#teamRebound").remove()
+        document.querySelector("#PTSGinput").remove()
+        document.querySelector("#FGinput").remove()
+        document.querySelector("#FTinput").remove()
+        document.querySelector("#PTSFinput").remove()
+        document.querySelector("#PT3input").remove()
+        document.querySelector("#ASTinput").remove()
+        document.querySelector("#REBinput").remove()
+        document.querySelector("#logo").remove()
+
+        OPENED_TEAMS[team.id.toLowerCase()] = false;
     }
 }
 

@@ -108,21 +108,39 @@ h1 {
     margin-top: 8px;
     font-weight: normal;
     font-size: medium;
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto;
     grid-template-columns: auto auto auto auto;
     display: grid;
+}
+
+.statInputs
+{
+    width: 4rem;
 }
 
 #teamFieldGoal
 {
     font-size: small;
-    grid-row: 3;
+    grid-row: 4;
 }
 
-#teamoverall
+#FGinput
+{
+    grid-row: 5;
+    grid-column: 3;
+}
+
+#teamPPGA
 {
     font-size: small;
     grid-row: 2;
+}
+
+#PTSGinput
+{
+    grid-row: 3;
+    grid-column: 1;
+
 }
 
 #teamFreeThrow
@@ -131,16 +149,34 @@ h1 {
     grid-row: 2;
 }
 
+#FTinput
+{
+    grid-row: 3;
+    grid-column: 2;
+}
+
 #team3point
 {
     font-size: small;
-    grid-row: 3;
+    grid-row: 4;
 }
 
-#teamPoints
+#PT3input
+{
+    grid-row: 5;
+    grid-column: 2;
+}
+
+#teamPTSfor
 {
     font-size: small;
     grid-row: 2;
+}
+
+#PTSFinput
+{
+    grid-row: 3;
+    grid-column: 3;
 }
 
 #teamAssists
@@ -149,10 +185,22 @@ h1 {
     grid-row: 2;
 }
 
+#ASTinput
+{
+    grid-row: 3;
+    grid-column: 4;
+}
+
 #teamRebound
 {
     font-size: small;
-    grid-row: 3;
+    grid-row: 4;
+}
+
+#REBinput
+{
+    grid-row: 5;
+    grid-column: 1;
 }
 
 #champion
