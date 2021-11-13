@@ -154,3 +154,263 @@ h1 {
     font-size: small;
     grid-row: 3;
 }
+
+#champion
+{
+    background: rgba(0, 0, 0);
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    display: grid;
+}
+
+#standings
+{
+    background: white;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column: 1 / -1;
+    grid-row: 1 / 3;
+}
+
+#playoffs
+{
+    background: rgb(177, 175, 175);
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    grid-column: 1 / -1;
+    grid-row: 3 / 6;
+}
+
+#westStandings
+{
+    text-align: center;
+    grid-column: 1;
+}
+
+#eastStandings
+{
+    text-align: center;
+    grid-column: 2;
+}
+
+#east1
+{ 
+    display: grid;
+    grid-column: 7;
+    grid-template-rows: auto auto auto auto auto auto auto auto;
+}
+
+#east2
+{ 
+    display: grid;
+    grid-column: 6;
+    grid-template-rows: repeat(auto 16);
+}
+
+#east3
+{ 
+    display: grid;
+    grid-column: 5;
+    grid-template-rows: repeat(auto 32);
+}
+
+#eastPos1
+{
+    margin-top: auto;
+    text-align: right;
+}
+
+#eastPos2
+{
+    text-align: right;
+}
+
+#eastPos3
+{
+    margin-top: auto;
+    text-align: right;
+}
+
+#eastPos4
+{
+    text-align: right;
+}
+
+#eastPos5
+{
+    margin-top: auto;
+    text-align: right;
+}
+
+#eastPos6
+{
+    text-align: right;
+
+}
+
+#eastPos7
+{
+    margin-top: auto;
+    text-align: right;
+}
+
+#eastPos8
+{
+    text-align: right;
+}
+
+#eastPost21
+{
+    margin-top: auto;
+    text-align: right;
+}
+
+#eastPost23
+{
+    text-align: right;
+}
+
+#eastPost22
+{
+    margin-top: auto;
+    text-align: right;
+}
+
+#eastPost24
+{
+    text-align: right;
+}
+
+#eastPost31
+{
+    margin-top: auto;
+    text-align: right;
+}
+
+#eastPost32
+{
+    text-align: right;
+}
+
+#eastPostF2
+{
+    grid-column: 2;
+    text-align: right;
+    margin-top: auto;
+}
+
+#final
+{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+#west1
+{ 
+    display: grid;
+    grid-column: 1;
+    grid-template-rows: auto auto auto auto auto auto auto auto;
+}
+
+#west2
+{ 
+    display: grid;
+    grid-column: 2;
+    grid-template-rows: auto auto auto auto;
+}
+
+#west3
+{ 
+    display: grid;
+    grid-column: 3;
+    grid-template-rows: auto auto   ;
+}
+
+#westPos1
+{
+    margin-top: auto;
+    text-align: left;
+}
+
+#westPos2
+{
+    text-align: left;
+}
+
+#westPos3
+{
+    margin-top: auto;
+    text-align: left;
+}
+
+#westPos4
+{
+    text-align: left;
+}
+
+#westPos5
+{
+    margin-top: auto;
+    text-align: left;
+}
+
+#westPos6
+{
+    text-align: left;
+
+}
+
+#westPos7
+{
+    margin-top: auto;
+    text-align: left;
+}
+
+#westPos8
+{
+    text-align: left;
+}
+
+#westPost21
+{
+    margin-top: auto;
+    text-align: left;
+}
+
+#westPost23
+{
+    text-align: left;
+}
+
+#westPost22
+{
+    margin-top: auto;
+    text-align: left;
+}
+
+#westPost24
+{
+    text-align: left;
+}
+
+#westPost31
+{
+    margin-top: auto;
+    text-align: left;
+}
+
+#westPost32
+{
+    text-align: left;
+}
+
+#westPostF2
+{
+    grid-column: 1;
+    text-align: right;
+    margin-top: 50%;
+}

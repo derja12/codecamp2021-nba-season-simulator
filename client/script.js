@@ -1,6 +1,5 @@
 SCHEDULE_COUNTS = {}
 SCHEDULE = []
-
 OPENED_TEAMS = {}
 
 getTeamInfo();
@@ -150,7 +149,7 @@ function addEasternTeams(teams) {
         teamDiv.classList.add('team-div');
         teamDiv.innerHTML = team["city"] + " " + team["name"];
         teamDiv.onclick = function () {teamStats(teamDiv)};
-        OPENED_TEAMS[team["name"]] = false;
+        OPENED_TEAMS[team["name"].toLowerCase()] = false;
         if (team["division"] == "Southeast") {
             southeastDiv.appendChild(teamDiv);
         } else if (team["division"] == "Central") {
@@ -165,10 +164,10 @@ function addEasternTeams(teams) {
 function teamStats(team)
 {
     console.log("Team Stats clicked")
-<<<<<<< Updated upstream
-    if (OPENED_TEAMS[team["name"]] == false)
+    if (OPENED_TEAMS[team.id] == false)
     {
         var img = document.createElement("img")
+        img.id = "logo"
         img.classList.add("logos")
         img.src = "../images/" + team.id + ".png"
         var teamOverall = document.createElement('p')
@@ -192,7 +191,7 @@ function teamStats(team)
         team3point.innerHTML = "3-Pt %:"
         teamAssists.innerHTML = "Assists:"
         teamRebounds.innerHTML = "Rebounds:"
-        team.appendChild(img);
+        team.appendChild(img)
         team.appendChild(teamOverall)
         team.appendChild(teamFreeThrow)
         team.appendChild(teamPoint)
@@ -200,6 +199,23 @@ function teamStats(team)
         team.appendChild(teamRebounds)
         team.appendChild(team3point)
         team.appendChild(teamFieldGoal)
+
+        OPENED_TEAMS[team.id.toLowerCase()] = true;
+    }
+    //if (OPENED_TEAMS[team.id.toLowerCase()] = true)
+    else
+    {
+        document.querySelector("#teamoverall").remove()
+        document.querySelector("#teamFieldGoal").remove()
+        document.querySelector("#teamFreeThrow").remove()
+        document.querySelector("#teamPoints").remove()
+        document.querySelector("#team3point").remove()
+        document.querySelector("#teamAssists").remove()
+        document.querySelector("#teamRebound").remove()
+        document.querySelector("#logo").remove()
+        
+
+        OPENED_TEAMS[team.id.toLowerCase()] = false;
     }
     
 }
@@ -207,12 +223,186 @@ var simulateButton = document.querySelector("#simulate")
 
 simulateButton.onclick = simulateSeason;
 
-function simulateSeason() {
+function simulateSeason() 
+{
+    var championDiv = document.createElement('div')
+    var standingsDiv = document.createElement('div')
+    var playoffDiv = document.createElement('div')
+    championDiv.id = "champion"
+    standingsDiv.id = "standings"
+    playoffDiv.id = "playoffs"
+    document.querySelector("body").appendChild(championDiv)
+    championDiv.appendChild(standingsDiv)
+    championDiv.appendChild(playoffDiv)
+
+    var westDiv = document.createElement('div')
+    var eastDiv = document.createElement('div')
+    //var overallDiv = document.createElement('div')
+    westDiv.id = "westStandings"
+    westDiv.innerHTML = "WESTERN STANDINGS"
+    eastDiv.id = "eastStandings"
+    eastDiv.innerHTML = "EASTERN STANDINGS"
+    //overallDiv.id = "overallStandings"
+    //overallDiv.innerHTML = "LEAGUE STANDINGS"
+    standingsDiv.appendChild(westDiv)
+    standingsDiv.appendChild(eastDiv)
+    //standingsDiv.appendChild(overallDiv)
+
+    var east1Div = document.createElement("div")
+    var west1Div = document.createElement("div")
+    var east2Div = document.createElement("div")
+    var west2Div = document.createElement("div")
+    var east3Div = document.createElement("div")
+    var west3Div = document.createElement("div")
+    var champDiv = document.createElement("div")
+    east1Div.id = "east1"   
+    west1Div.id = "west1"
+    east2Div.id = "east2"
+    west2Div.id = "west2"
+    east3Div.id = "east3"
+    west3Div.id = "west3"
+    champDiv.id = "final"
+    playoffDiv.appendChild(west1Div)
+    playoffDiv.appendChild(west2Div)
+    playoffDiv.appendChild(west3Div)
+    playoffDiv.appendChild(champDiv)
+    playoffDiv.appendChild(east3Div)
+    playoffDiv.appendChild(east2Div) 
+    playoffDiv.appendChild(east1Div)
+
+    var eastPos1 = document.createElement("div")
+    var eastPos2 = document.createElement("div")
+    var eastPos3 = document.createElement("div")
+    var eastPos4 = document.createElement("div")
+    var eastPos5 = document.createElement("div")
+    var eastPos6 = document.createElement("div")
+    var eastPos7 = document.createElement("div")
+    var eastPos8 = document.createElement("div")
+    var westPos1 = document.createElement("div")
+    var westPos2 = document.createElement("div")
+    var westPos3 = document.createElement("div")
+    var westPos4 = document.createElement("div")
+    var westPos5 = document.createElement("div")
+    var westPos6 = document.createElement("div")
+    var westPos7 = document.createElement("div")
+    var westPos8 = document.createElement("div")
+    eastPos1.id = "eastPos1"
+    eastPos1.innerHTML = " - 1"
+    eastPos2.id = "eastPos2"
+    eastPos2.innerHTML = " - 2"
+    eastPos3.id = "eastPos3"
+    eastPos3.innerHTML = " - 3"
+    eastPos4.id = "eastPos4"
+    eastPos4.innerHTML = " - 4"
+    eastPos5.id = "eastPos5"
+    eastPos5.innerHTML = " - 5"
+    eastPos6.id = "eastPos6"
+    eastPos6.innerHTML = " - 6"
+    eastPos7.id = "eastPos7"
+    eastPos7.innerHTML = " - 7"
+    eastPos8.id = "eastPos8"
+    eastPos8.innerHTML = " - 8"
+    westPos1.id = "westPos1"
+    westPos1.innerHTML = "1 - "
+    westPos2.id = "westPos2"
+    westPos2.innerHTML = "2 - "
+    westPos3.id = "westPos3"
+    westPos3.innerHTML = "3 - "
+    westPos4.id = "westPos4"
+    westPos4.innerHTML = "4 - "
+    westPos5.id = "westPos5"
+    westPos5.innerHTML = "5 - "
+    westPos6.id = "westPos6"
+    westPos6.innerHTML = "6 - "
+    westPos7.id = "westPos7"
+    westPos7.innerHTML = "7 - "
+    westPos8.id = "westPos8"
+    westPos8.innerHTML = "8 - "
+    east1Div.appendChild(eastPos1)
+    east1Div.appendChild(eastPos8)
+    east1Div.appendChild(eastPos5)
+    east1Div.appendChild(eastPos6)
+    east1Div.appendChild(eastPos3)
+    east1Div.appendChild(eastPos4)
+    east1Div.appendChild(eastPos7)
+    east1Div.appendChild(eastPos2)
+    west1Div.appendChild(westPos1)
+    west1Div.appendChild(westPos8)
+    west1Div.appendChild(westPos5)
+    west1Div.appendChild(westPos6)
+    west1Div.appendChild(westPos3)
+    west1Div.appendChild(westPos4)
+    west1Div.appendChild(westPos7)
+    west1Div.appendChild(westPos2)
+
+    var eastPos21 = document.createElement('div')
+    var eastPos22 = document.createElement('div')
+    var eastPos23 = document.createElement('div')
+    var eastPos24 = document.createElement('div')
+    var westPos21 = document.createElement('div')
+    var westPos22 = document.createElement('div')
+    var westPos23 = document.createElement('div')
+    var westPos24 = document.createElement('div')
+    eastPos21.id = "eastPost21"
+    eastPos21.innerHTML = " - 1"
+    eastPos22.id = "eastPost22"
+    eastPos22.innerHTML = " - 2"
+    eastPos23.id = "eastPost23"
+    eastPos23.innerHTML = " - 3"
+    eastPos24.id = "eastPost24"
+    eastPos24.innerHTML = " - 4"
+    westPos21.id = "westPost21"
+    westPos21.innerHTML = "1 - "
+    westPos22.id = "westPost22"
+    westPos22.innerHTML = "2 - "
+    westPos23.id = "westPost23"
+    westPos23.innerHTML = "3 - "
+    westPos24.id = "westPost24"
+    westPos24.innerHTML = "4 - "
+    east2Div.appendChild(eastPos21)
+    east2Div.appendChild(eastPos24)
+    east2Div.appendChild(eastPos22)
+    east2Div.appendChild(eastPos23)
+    west2Div.appendChild(westPos21)
+    west2Div.appendChild(westPos24)
+    west2Div.appendChild(westPos22)
+    west2Div.appendChild(westPos23)
+
+    var eastPos31 = document.createElement('div')
+    var eastPos32 = document.createElement('div')
+    var westPos31 = document.createElement('div')
+    var westPos32 = document.createElement('div')
+    eastPos31.id = "eastPost31"
+    eastPos31.innerHTML = " - 1"
+    eastPos32.id = "eastPost32"
+    eastPos32.innerHTML = " - 2"
+    westPos31.id = "westPost31"
+    westPos31.innerHTML = "1 - "
+    westPos32.id = "westPost32"
+    westPos32.innerHTML = "2 - "
+    east3Div.appendChild(eastPos31)
+    east3Div.appendChild(eastPos32)
+    west3Div.appendChild(westPos31)
+    west3Div.appendChild(westPos32)
+
+    var eastPosF1 = document.createElement('div')
+    var westPosF1 = document.createElement('div')
+    eastPosF1.id = "eastPostF2"
+    eastPosF1.innerHTML = " - 1"
+    westPosF1.id = "westPostF1"
+    westPosF1.innerHTML = "1 - "
+    champDiv.appendChild(eastPosF1)
+    champDiv.appendChild(westPosF1)
+    
+
+
+
+
     for (i = 0; i < SCHEDULE.length; i++) {
         team1 = SCHEDULE[i].split("-")[0]
         team2 = SCHEDULE[i].split("-")[1]
         console.log(team1, "vs", team2);
-    }
+}
 
 
     /*
