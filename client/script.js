@@ -165,6 +165,7 @@ function addEasternTeams(teams) {
 function teamStats(team)
 {
     console.log("Team Stats clicked")
+<<<<<<< Updated upstream
     if (OPENED_TEAMS[team["name"]] == false)
     {
         var img = document.createElement("img")
@@ -200,7 +201,6 @@ function teamStats(team)
         team.appendChild(team3point)
         team.appendChild(teamFieldGoal)
     }
-
     
 }
 var simulateButton = document.querySelector("#simulate")
