@@ -1,6 +1,8 @@
 SCHEDULE_COUNTS = {}
 SCHEDULE = []
 
+OPENED_TEAMS = {}
+
 getTeamInfo();
 
 gameTeams = {
@@ -110,7 +112,7 @@ function addWesternTeams(teams)
         teamDiv.classList.add('team-div');
         teamDiv.innerHTML = team["city"] + " " + team["name"];
         teamDiv.onclick = function () {teamStats(teamDiv)};
-
+        OPENED_TEAMS[team["name"]] = false;
         if (team["division"] == "Pacific") {
             pacificDiv.appendChild(teamDiv);
         } else if (team["division"] == "Northwest") {

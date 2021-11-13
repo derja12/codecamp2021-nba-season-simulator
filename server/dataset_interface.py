@@ -87,5 +87,34 @@ def updateTeamDivison():
 
     conn.close()
 
+def initializeGameData():
+    teams = pd.read_csv("../data/games.csv")
+    conn = sqlite3.connect("../data/nba.db")
+    cur = conn.cursor()
+
+    cur.execute("""
+            CREATE TABLE games (
+                id INTEGER PRIMARY KEY,
+                name TEXT,
+                city TEXT,
+                abbreviation TEXT,
+                conference TEXT,
+                division TEXT)
+            """)
+
+    for i in range(len(teams)):
+        cur.execute(
+            "INSERT INTO teams (id, name, city, abbreviation) VALUES (?, ?, ?, ?)",
+            [int(teams["TEAM_ID"][i]), teams["NICKNAME"][i], teams["CITY"][i], teams["ABBREVIATION"][i]])
+    
+    cur.execute("SELECT * FROM teams")
+    print(cur.fetchall())
+
+    y = input("Commit? [y/n] ")
+    if y == "y" or y == "Y":
+        conn.commit()
+
+    conn.close()
+
 # initializeTeamData()
 updateTeamDivison()
