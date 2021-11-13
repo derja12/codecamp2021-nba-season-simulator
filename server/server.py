@@ -70,7 +70,7 @@ class MyRequestHandler(BaseHTTPRequestHandler):
                 self.handleGetTeam(member)
             else:
                 self.handleGetTeams()
-        if collection == "stats":
+        elif collection == "stats":
             if member is not None:
                 self.handleGetStat(member)
             else:
