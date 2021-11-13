@@ -593,13 +593,7 @@ function isConferenceCalculated(teamObject, otherObject) {
             count += 1;
         }
     }
-    if (count < 6) {
-        return false;
-    }
-
-    // condition 2: distribute evenly
-
-    if (count < 6 || teamObject["conferenceCount"][otherObject["conference"]] < otherObject["conferenceCount"][otherObject["conference"]]) {
+    if (count < 6 && teamObject["conferenceCount"][otherObject["conference"]] < 3) {
         return false;
     }
     return true;
