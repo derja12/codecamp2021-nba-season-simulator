@@ -1,5 +1,7 @@
 SCHEDULE_COUNTS = {}
 SCHEDULE = []
+SCHEDULE_TEAMS = {}
+
 OPENED_TEAMS = {}
 
 getTeamInfo();
@@ -437,7 +439,7 @@ function calculateOverallRating(teams) {
     });
 }
 
-getTeamStats();
+// getTeamStats();
 
 function calculateGame(leftTeamID, rightTeamID) {
     var total = gameTeams[leftTeamID]["stats"] + gameTeams[rightTeamID]["stats"];
@@ -466,22 +468,141 @@ onSimulateButtonClicked():
 */
 
 function createSchedule(allTeams) {
-    for (var i = 0; i < allTeams.length; i++) {
-        currentTeam = allTeams[i];
+    allTeams.forEach(team => {
+        scheduleObject = {
+            "name" : team["name"].toLowerCase(),
+            "conferenceDeciders" : { },
+            "conferenceGames" : { },
+            "divisionGames" : { },
+            "otherConferenceGames" : { },
+            "conferenceCount": { },
+            "division" : team["division"].toLowerCase(),
+            "conference" : team["conference"].toLowerCase()
+        }
 
-        teamName = currentTeam["name"];
-        SCHEDULE_COUNTS[teamName] = 0;
-
-        for (var j = 0; j < allTeams.length; j++) {
-            possibleName1 = allTeams[j]["name"] + "-" + teamName;
-            possibleName2 = teamName + "-" + allTeams[j]["name"];
-
-            if (!gameExists(possibleName1) && !gameExists(possibleName2) && allTeams[j]["name"] != teamName) {
-                SCHEDULE.push(possibleName1);
+        if (team["conference"] == "East") {
+            if (team["division"] != "Southeast") {
+                scheduleObject["conferenceCount"]["southeast"] = 0;
             }
-            
+            if (team["division"] != "Atlantic") {
+                scheduleObject["conferenceCount"]["atlantic"] = 0;
+            }
+            if (team["division"] != "Central") {
+                scheduleObject["conferenceCount"]["central"] = 0;
+            }
+        } else {
+            if (team["division"] != "Northwest") {
+                scheduleObject["conferenceCount"]["northwest"] = 0;
+            }
+            if (team["division"] != "Pacific") {
+                scheduleObject["conferenceCount"]["pacific"] = 0;
+            }
+            if (team["division"] != "Southwest") {
+                scheduleObject["conferenceCount"]["southwest"] = 0;
+            }
+        }
+
+        for(i = 0; i < allTeams.length; i++) {
+            otherTeam = allTeams[i];
+            if (otherTeam["name"] == team["name"]) {
+                continue;
+            }
+            if (otherTeam["division"] == team["division"]) {
+                scheduleObject["divisionGames"][otherTeam["name"].toLowerCase()] = false;
+                
+            } else 
+            if (otherTeam["conference"] == team["conference"]) {
+                scheduleObject["conferenceDeciders"][otherTeam["name"].toLowerCase()] = 0;
+            } else {
+                scheduleObject["otherConferenceGames"][otherTeam["name"].toLowerCase()] = false;
+            }
+        }
+        SCHEDULE_TEAMS[scheduleObject["name"]] = scheduleObject;
+    });
+    console.log(SCHEDULE_TEAMS);
+    for (let teamName in SCHEDULE_TEAMS) {
+        teamObject = SCHEDULE_TEAMS[teamName];
+        conferenceDecidersObject = teamObject["conferenceDeciders"];
+        for (let otherTeam in conferenceDecidersObject) {
+            // console.log(teamName, otherTeam)
+            if (!isConferenceCalculated(teamObject, SCHEDULE_TEAMS[otherTeam])) {
+                if (conferenceDecidersObject[otherTeam] == 0) {
+                    conferenceDecidersObject[otherTeam] = 2;
+                    // TODO: ADD 4 GAMES, MARK OTHERTEAM
+                    SCHEDULE.push(teamName + "-" + otherTeam);
+                    SCHEDULE.push(teamName + "-" + otherTeam);
+                    SCHEDULE.push(teamName + "-" + otherTeam);
+                    SCHEDULE.push(teamName + "-" + otherTeam);
+                    SCHEDULE_TEAMS[otherTeam]["conferenceDeciders"][teamName] = 2;
+                    SCHEDULE_TEAMS[otherTeam]["conferenceCount"][teamObject["conference"]] += 1;
+                    SCHEDULE_TEAMS[teamName]["conferenceCount"][SCHEDULE_TEAMS[otherTeam]["conference"]] += 1;
+                }
+            } else {
+                if (conferenceDecidersObject[otherTeam] == 0) {
+                    conferenceDecidersObject[otherTeam] = 1;
+                    // TODO: ADD 3 GAMES, MARK OTHERTEAM
+                    SCHEDULE.push(teamName + "-" + otherTeam);
+                    SCHEDULE.push(teamName + "-" + otherTeam);
+                    SCHEDULE.push(teamName + "-" + otherTeam);
+                    SCHEDULE_TEAMS[otherTeam]["conferenceDeciders"][teamName] = 1;
+                }
+            }
+        }
+        otherConferenceObject = teamObject["otherConferenceGames"];
+        for (let otherTeam in otherConferenceObject) {
+            if (otherConferenceObject[otherTeam] == false) {
+                otherConferenceObject[otherTeam] = true;
+                // TODO: ADD 2 GAMES, MARK OTHERTEAM
+                SCHEDULE.push(teamName + "-" + otherTeam);
+                SCHEDULE.push(teamName + "-" + otherTeam);
+                SCHEDULE_TEAMS[otherTeam]["otherConferenceGames"][teamName] = true;
+
+            }
+        }
+        sameDivisionObject = teamObject["divisionGames"];
+        for (let otherTeam in sameDivisionObject) {
+            if (sameDivisionObject[otherTeam] == false) {
+                sameDivisionObject[otherTeam] = true;
+                // TODO: ADD 4 GAMES, MARK OTHERTEAM
+                SCHEDULE.push(teamName + "-" + otherTeam);
+                SCHEDULE.push(teamName + "-" + otherTeam);
+                SCHEDULE.push(teamName + "-" + otherTeam);
+                SCHEDULE.push(teamName + "-" + otherTeam);
+                SCHEDULE_TEAMS[otherTeam]["divisionGames"][teamName] = true;
+            }
         }
     }
+    console.log(SCHEDULE.length);
+}
+
+function countTeamGames(teamName) {
+    count = 0;
+    SCHEDULE.forEach(game => {
+        if (teamName == game.split("-")[0] || teamName == game.split("-")[1]) {
+            count += 1;
+        }
+    })
+    console.log(teamName, count);
+}
+
+function isConferenceCalculated(teamObject, otherObject) {
+    var count = 0;
+    // condition 1: no more than 6 for self
+    for (let teamName in teamObject["conferenceDeciders"]) {
+        if (conferenceDecidersObject[teamName] == 2) {
+            count += 1;
+        }
+    }
+    if (count < 6) {
+        return false;
+    }
+
+    // condition 2: distribute evenly
+
+    if (count < 6 || teamObject["conferenceCount"][otherObject["conference"]] < otherObject["conferenceCount"][otherObject["conference"]]) {
+        return false;
+    }
+    return true;
 }
 
 function gameExists(gameName) {
@@ -503,6 +624,9 @@ function getTeamInfo() {
             addWesternTeams(team_array);
             addEasternTeams(team_array);
             createSchedule(team_array);
+            team_array.forEach(teamObject => {
+                countTeamGames(teamObject["name"].toLowerCase());
+            });
         });
     });
 }
