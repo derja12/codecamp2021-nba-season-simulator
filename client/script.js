@@ -1,10 +1,7 @@
 SCHEDULE_COUNTS = {}
 SCHEDULE = []
-<<<<<<< HEAD
-=======
 SCHEDULE_TEAMS = {}
 
->>>>>>> a986c73fb5eac9bae4423c185c679056a0ab90ce
 OPENED_TEAMS = {}
 TEAM_RATING = {}
 
@@ -19,11 +16,11 @@ function addWesternTeams(teams) {
     teams.forEach(team => {
         var teamDiv = document.createElement("div")
     
-        teamDiv.id = team["abbreviation"];
+        teamDiv.id = team["name"].toLowerCase();
         teamDiv.classList.add('team-div');
         teamDiv.innerHTML = team["city"] + " " + team["name"];
         teamDiv.onclick = function () {teamStats(teamDiv)};
-        OPENED_TEAMS[team["abbreviation"]] = false;
+        OPENED_TEAMS[team["name"].toLowerCase()] = false;
         if (team["division"] == "Pacific") {
             pacificDiv.appendChild(teamDiv);
         } else if (team["division"] == "Northwest") {
@@ -42,15 +39,11 @@ function addEasternTeams(teams) {
     teams.forEach(team => {
         var teamDiv = document.createElement("div")
     
-        teamDiv.id = team["abbreviation"];
+        teamDiv.id = team["name"].toLowerCase();
         teamDiv.classList.add('team-div');
         teamDiv.innerHTML = team["city"] + " " + team["name"];
         teamDiv.onclick = function () {teamStats(teamDiv)};
-<<<<<<< HEAD
-        OPENED_TEAMS[team["abbreviation"]] = false;
-=======
         OPENED_TEAMS[team["name"].toLowerCase()] = false;
->>>>>>> a986c73fb5eac9bae4423c185c679056a0ab90ce
         if (team["division"] == "Southeast") {
             southeastDiv.appendChild(teamDiv);
         } else if (team["division"] == "Central") {
@@ -63,11 +56,10 @@ function addEasternTeams(teams) {
     
 function teamStats(team) {
     console.log("Team Stats clicked")
-<<<<<<< HEAD
-    if (!OPENED_TEAMS[team["abbreviation"]]) {
+    if (!OPENED_TEAMS[team.id]) {
         var img = document.createElement("img");
         img.classList.add("logos");
-        img.src = "../images/" + team["name"].toLowerCase() + ".png";
+        img.src = "../images/" + team.id + ".png";
         var teamOverall = document.createElement('p');
         var teamFieldGoal = document.createElement('p');
         var teamFreeThrow = document.createElement('p');
@@ -97,62 +89,6 @@ function teamStats(team) {
         team.appendChild(teamRebounds);
         team.appendChild(team3point);
         team.appendChild(teamFieldGoal);
-=======
-    
-    if (OPENED_TEAMS[team.id] == false)
-    {
-        var img = document.createElement("img")
-        img.id = "logo"
-        img.classList.add("logos")
-        img.src = "../images/" + team.id + ".png"
-        var teamOverall = document.createElement('p')
-        var teamFieldGoal = document.createElement('p')
-        var teamFreeThrow = document.createElement('p')
-        var teamPoint = document.createElement('p')
-        var team3point = document.createElement('p')
-        var teamAssists = document.createElement('p')
-        var teamRebounds = document.createElement('p')
-        teamOverall.id = "teamoverall"
-        teamFieldGoal.id = "teamFieldGoal"
-        teamFreeThrow.id = "teamFreeThrow"
-        teamPoint.id = "teamPoints"
-        team3point.id = "team3point"
-        teamAssists.id = "teamAssists"
-        teamRebounds.id = "teamRebound"
-        teamOverall.innerHTML = "Team Rating:" 
-        teamFieldGoal.innerHTML = "FG %:"
-        teamFreeThrow.innerHTML = "FT %:"
-        teamPoint.innerHTML = "Points:"
-        team3point.innerHTML = "3-Pt %:"
-        teamAssists.innerHTML = "Assists:"
-        teamRebounds.innerHTML = "Rebounds:"
-        team.appendChild(img)
-        team.appendChild(teamOverall)
-        team.appendChild(teamFreeThrow)
-        team.appendChild(teamPoint)
-        team.appendChild(teamAssists)
-        team.appendChild(teamRebounds)
-        team.appendChild(team3point)
-        team.appendChild(teamFieldGoal)
-
-        OPENED_TEAMS[team.id.toLowerCase()] = true;
-    }
-    //if (OPENED_TEAMS[team.id.toLowerCase()] = true)
-    else
-    {
-        document.querySelector("#teamoverall").remove()
-        document.querySelector("#teamFieldGoal").remove()
-        document.querySelector("#teamFreeThrow").remove()
-        document.querySelector("#teamPoints").remove()
-        document.querySelector("#team3point").remove()
-        document.querySelector("#teamAssists").remove()
-        document.querySelector("#teamRebound").remove()
-        document.querySelector("#logo").remove()
-        
-
-        OPENED_TEAMS[team.id.toLowerCase()] = false;
-
->>>>>>> a986c73fb5eac9bae4423c185c679056a0ab90ce
     }
 }
 
@@ -374,11 +310,6 @@ function calculateOverallRating(teams) {
     console.log(TEAM_RATING);
 }
 
-<<<<<<< HEAD
-=======
-// getTeamStats();
-
->>>>>>> a986c73fb5eac9bae4423c185c679056a0ab90ce
 function calculateGame(leftTeamID, rightTeamID) {
     var total = TEAM_RATING[leftTeamID]["stats"] + TEAM_RATING[rightTeamID]["stats"];
     var onePercent = total / 100;
@@ -531,7 +462,13 @@ function isConferenceCalculated(teamObject, otherObject) {
             count += 1;
         }
     }
-    if (count < 6 && teamObject["conferenceCount"][otherObject["conference"]] < 3) {
+    if (count < 6) {
+        return false;
+    }
+
+    // condition 2: distribute evenly
+
+    if (count < 6 || teamObject["conferenceCount"][otherObject["conference"]] < otherObject["conferenceCount"][otherObject["conference"]]) {
         return false;
     }
     return true;
@@ -556,13 +493,10 @@ function getTeamInfo() {
             addWesternTeams(team_array);
             addEasternTeams(team_array);
             createSchedule(team_array);
-<<<<<<< HEAD
             createTeamRatings(team_array);
-=======
             team_array.forEach(teamObject => {
                 countTeamGames(teamObject["name"].toLowerCase());
             });
->>>>>>> a986c73fb5eac9bae4423c185c679056a0ab90ce
         });
     });
 }
