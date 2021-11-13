@@ -1,6 +1,130 @@
+TEAM_ARRAY = {}
 SCHEDULE_COUNTS = {}
 SCHEDULE = []
 SCHEDULE_TEAMS = {}
+NAME_TO_ID = {}
+TEAM_WIN_LOSS = {
+    "warriors": {
+        "wins": 0,
+        "losses": 0
+    },
+    "suns": {
+        "wins": 0,
+        "losses": 0
+    },
+    "jazz": {
+        "wins": 0,
+        "losses": 0
+    },
+    "mavericks": {
+        "wins": 0,
+        "losses": 0
+    },
+    "nuggets": {
+        "wins": 0,
+        "losses": 0
+    },
+    "clippers": {
+        "wins": 0,
+        "losses": 0
+    },
+    "grizzlies": {
+        "wins": 0,
+        "losses": 0
+    },
+    "kings": {
+        "wins": 0,
+        "losses": 0
+    },
+    "trail blazers": {
+        "wins": 0,
+        "losses": 0
+    },
+    "thunder": {
+        "wins": 0,
+        "losses": 0
+    },
+    "spurs": {
+        "wins": 0,
+        "losses": 0
+    },
+    "timberwolves": {
+        "wins": 0,
+        "losses": 0
+    },
+    "rockets": {
+        "wins": 0,
+        "losses": 0
+    },
+    "pelicans": {
+        "wins": 0,
+        "losses": 0
+    },
+    "wizards": {
+        "wins": 0,
+        "losses": 0
+    },
+    "bulls": {
+        "wins": 0,
+        "losses": 0
+    },
+    "nets": {
+        "wins": 0,
+        "losses": 0
+    },
+    "76ers": {
+        "wins": 0,
+        "losses": 0
+    },
+    "cavaliers": {
+        "wins": 0,
+        "losses": 0
+    },
+    "heat": {
+        "wins": 0,
+        "losses": 0
+    },
+    "raptors": {
+        "wins": 0,
+        "losses": 0
+    },
+    "bucks": {
+        "wins": 0,
+        "losses": 0
+    },
+    "hornets": {
+        "wins": 0,
+        "losses": 0
+    },
+    "celtics": {
+        "wins": 0,
+        "losses": 0
+    },
+    "pacers": {
+        "wins": 0,
+        "losses": 0
+    },
+    "hawks": {
+        "wins": 0,
+        "losses": 0
+    },
+    "magic": {
+        "wins": 0,
+        "losses": 0
+    },
+    "pistons": {
+        "wins": 0,
+        "losses": 0
+    },
+    "knicks": {
+        "wins": 0,
+        "losses": 0
+    },
+    "lakers": {
+        "wins": 0,
+        "losses": 0
+    }
+}
 
 OPENED_TEAMS = {}
 TEAM_RATING = {}
@@ -55,7 +179,7 @@ function addEasternTeams(teams) {
 }
     
 function teamStats(team) {
-    console.log("Team Stats clicked")
+    //console.log("Team Stats clicked")
     if (!OPENED_TEAMS[team.id]) {
         var img = document.createElement("img");
         img.classList.add("logos");
@@ -97,6 +221,34 @@ simulateButton.onclick = simulateSeason;
 
 function simulateSeason() 
 {
+
+    SCHEDULE.forEach(function (gameUnParsed) {
+        team1 = gameUnParsed.split("-")[0];
+        team2 = gameUnParsed.split("-")[1];
+        teamWin = calculateGame(team1, team2);
+        if (team1 == teamWin) {
+            teamLoss = team2;
+        } else {
+            teamLoss = team1;
+        }
+        //console.log(teamWin, TEAM_WIN_LOSS[teamWin]);
+        //console.log(teamLoss, TEAM_WIN_LOSS[teamLoss]);
+        TEAM_WIN_LOSS[teamLoss]["losses"] += 1;
+        TEAM_WIN_LOSS[teamWin]["wins"] += 1;
+    });
+    console.log(TEAM_WIN_LOSS);
+
+    WestStandings = {};
+    EastStandings = {};
+    WestRatioSort = [];
+    EastRatioSort = [];
+    for (let teamName in TEAM_WIN_LOSS) {
+        win = TEAM_WIN_LOSS[teamName]["wins"];
+        loss = TEAM_WIN_LOSS[teamName]["losses"];
+        ratio = win/loss;
+        
+    }
+
     var championDiv = document.createElement('div')
     var standingsDiv = document.createElement('div')
     var playoffDiv = document.createElement('div')
@@ -273,7 +425,7 @@ function simulateSeason()
     for (i = 0; i < SCHEDULE.length; i++) {
         team1 = SCHEDULE[i].split("-")[0]
         team2 = SCHEDULE[i].split("-")[1]
-        console.log(team1, "vs", team2);
+        //console.log(team1, "vs", team2);
 }
 
 
@@ -304,21 +456,24 @@ function calculateOverallRating(teams) {
         total += 0.8125 * team["ast"];
         total += 0.35 * team["reb"];
         total *= 3.333;
-        console.log(total);
+        //console.log(total);
         TEAM_RATING[team["id"]] = total;
     });
-    console.log(TEAM_RATING);
+    //console.log(TEAM_RATING);
 }
+getTeamStats();
 
-function calculateGame(leftTeamID, rightTeamID) {
-    var total = TEAM_RATING[leftTeamID]["stats"] + TEAM_RATING[rightTeamID]["stats"];
+function calculateGame(leftTeam, rightTeam) {
+    leftTeamID = NAME_TO_ID[leftTeam];
+    rightTeamID = NAME_TO_ID[rightTeam];    
+    var total = TEAM_RATING[leftTeamID] + TEAM_RATING[rightTeamID];
     var onePercent = total / 100;
-    var percentThresh = TEAM_RATING[rightTeamID]["stats"] / onePercent;
+    var percentThresh = TEAM_RATING[rightTeamID] / onePercent;
     var winPercentPoint = Math.floor(Math.random() * 100);
     if (winPercentPoint < 100 - percentThresh) {
-        teamWon = leftTeamID;
+        teamWon = leftTeam;
     } else {
-        teamWon = rightTeamID;
+        teamWon = rightTeam;
     }
     return teamWon;
 }
@@ -338,8 +493,13 @@ onSimulateButtonClicked():
 
 function createSchedule(allTeams) {
     allTeams.forEach(team => {
+        NAME_TO_ID[team["name"].toLowerCase()] = team["id"];
+        
+
+        teamName = team["name"].toLowerCase();
+        
         scheduleObject = {
-            "name" : team["name"].toLowerCase(),
+            "name" : teamName,
             "conferenceDeciders" : { },
             "conferenceGames" : { },
             "divisionGames" : { },
@@ -388,12 +548,12 @@ function createSchedule(allTeams) {
         }
         SCHEDULE_TEAMS[scheduleObject["name"]] = scheduleObject;
     });
-    console.log(SCHEDULE_TEAMS);
+    //console.log(SCHEDULE_TEAMS);
     for (let teamName in SCHEDULE_TEAMS) {
         teamObject = SCHEDULE_TEAMS[teamName];
         conferenceDecidersObject = teamObject["conferenceDeciders"];
         for (let otherTeam in conferenceDecidersObject) {
-            // console.log(teamName, otherTeam)
+            // //console.log(teamName, otherTeam)
             if (!isConferenceCalculated(teamObject, SCHEDULE_TEAMS[otherTeam])) {
                 if (conferenceDecidersObject[otherTeam] == 0) {
                     conferenceDecidersObject[otherTeam] = 2;
@@ -441,7 +601,7 @@ function createSchedule(allTeams) {
             }
         }
     }
-    console.log(SCHEDULE.length);
+    //console.log(SCHEDULE.length);
 }
 
 function countTeamGames(teamName) {
@@ -451,7 +611,7 @@ function countTeamGames(teamName) {
             count += 1;
         }
     })
-    console.log(teamName, count);
+    //console.log(teamName, count);
 }
 
 function isConferenceCalculated(teamObject, otherObject) {
@@ -462,13 +622,10 @@ function isConferenceCalculated(teamObject, otherObject) {
             count += 1;
         }
     }
-    if (count < 6) {
-        return false;
-    }
 
     // condition 2: distribute evenly
 
-    if (count < 6 || teamObject["conferenceCount"][otherObject["conference"]] < otherObject["conferenceCount"][otherObject["conference"]]) {
+    if (count < 6 && teamObject["conferenceCount"][otherObject["conference"]] < 3) {
         return false;
     }
     return true;
@@ -489,7 +646,8 @@ function getTeamInfo() {
         method: "GET"
     }).then(function (response) {
         response.json().then(function (team_array) {
-            console.log(team_array);
+            TEAM_ARRAY = team_array;
+            //console.log(team_array);
             addWesternTeams(team_array);
             addEasternTeams(team_array);
             createSchedule(team_array);
@@ -506,7 +664,7 @@ function getTeamStats() {
         method: "GET"
     }).then(function (response) {
         response.json().then(function (team_array) {
-            console.log(team_array);
+            //console.log(team_array);
             calculateOverallRating(team_array)
         });
     });
