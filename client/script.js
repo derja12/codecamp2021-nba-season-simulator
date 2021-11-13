@@ -383,10 +383,10 @@ function simulateSeason()
     var westText = document.createElement('div')
     var eastText = document.createElement('div')
     westDiv.id = "westStandings"
-    westText.innerHTML = "WESTERN STANDINGS"
+    westText.innerHTML = "WEST"
     westText.id = "west-text"
     eastDiv.id = "eastStandings"
-    eastText.innerHTML = "EASTERN STANDINGS"
+    eastText.innerHTML = "EAST"
     eastText.id = "east-text"
     overallDiv.id = "overallStandings"
     overallDiv.innerHTML = "LEAGUE CHAMPION"
@@ -404,19 +404,23 @@ function simulateSeason()
     westDiv.appendChild(westText)
     eastDiv.appendChild(eastText)
 
+    counter = 0
     standingsWest.forEach(teamName => {
-        teamDiv = document.createElement("li");
+        teamDiv = document.createElement("div");
+        counter += 1
         if (teamName == "trail") {
             teamName = "trail blazers"
         }
-        teamDiv.innerHTML = teamName;
-        teamDiv.classList.add("team-standings-div")
+        teamDiv.innerHTML = " [" + counter.toString() + "] " + teamName
+        teamDiv.classList.add("team-standings-div-west")
         westDiv.appendChild(teamDiv);
     });
+    counter = 0
     standingsEast.forEach(teamName => {
-        teamDiv = document.createElement("li");
+        teamDiv = document.createElement("div");
+        counter += 1
         teamDiv.classList.add("team-standings-div")
-        teamDiv.innerHTML = teamName;
+        teamDiv.innerHTML = teamName + " [" + counter.toString() + "]"
         eastDiv.appendChild(teamDiv);
     });
 

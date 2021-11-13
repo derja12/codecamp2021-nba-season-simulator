@@ -263,11 +263,11 @@ h1 {
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
     grid-column: 1;
-    width: fit-content;
-    font-size: 2rem;
+    width: 8rem;
+    font-size: 1.5rem;
     padding: 10px;
+    white-space: nowrap;
 }
 
 #west-text {
@@ -282,11 +282,13 @@ h1 {
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
+    text-align: right;
     grid-column: 2;
     width: fit-content;
-    font-size: 2rem;
+    font-size: 1.5rem;
     padding: 10px;
+    align-items: right;
+    overflow: visible;
 }
 
 #east-text {
@@ -294,6 +296,8 @@ h1 {
     padding-left: 2rem;
     margin-bottom: 10px;
     border-bottom: 2px solid royalblue;
+    margin-left: auto;
+    margin-right: 0;
 }
 
 #east1
@@ -533,9 +537,15 @@ h1 {
 
 .team-standings-div {
     font-size: 1rem;
-    margin-left: 10rem;
-    margin-right: auto;
-    color: #7A31C7;
+    margin-right: 2rem;
+    text-transform: capitalize;
+    list-style: decimal;
+    text-align: right;
+}
+
+.team-standings-div-west {
+    font-size: 1rem;
+    margin-left: 2rem;
     text-transform: capitalize;
     list-style: decimal;
     text-align: left;
