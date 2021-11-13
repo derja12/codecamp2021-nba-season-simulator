@@ -16,6 +16,14 @@ class nbaDB:
         self.cursor.execute("SELECT * FROM teams")
         return self.cursor.fetchall()
 
+    def getStats(self):
+        self.cursor.execute("SELECT * FROM stats")
+        return self.cursor.fetchall()
+
     def getTeam(self, id):
         self.cursor.execute("SELECT * FROM teams WHERE id = ?", [id])
+        return self.cursor.fetchone()
+
+    def getStat(self, id):
+        self.cursor.execute("SELECT * FROM stats WHERE id = ?", [id])
         return self.cursor.fetchone()

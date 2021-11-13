@@ -23,6 +23,15 @@ class MyRequestHandler(BaseHTTPRequestHandler):
         teams = self.db.getTeams()
         self.wfile.write(bytes(json.dumps(teams), "utf-8"))
 
+    def handleGetStats(self):
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
+
+        self.db = nbaDB()
+        teams = self.db.getStats()
+        self.wfile.write(bytes(json.dumps(teams), "utf-8"))
+
     def handleGetTeam(self, id):
         self.db = nbaDB()
         team = self.db.getTeam(id)
@@ -33,6 +42,17 @@ class MyRequestHandler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", "application/json")
         self.end_headers()
         self.wfile.write(bytes(json.dumps(team), "utf-8"))
+
+    def handleGetStat(self, id):
+        self.db = nbaDB()
+        stat = self.db.getStat(id)
+        if stat is None:
+            self.handleNotFound()
+
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
+        self.wfile.write(bytes(json.dumps(stat), "utf-8"))
 
     def do_GET(self):
         print("This code will handle all incoming GET requests.")
@@ -50,6 +70,11 @@ class MyRequestHandler(BaseHTTPRequestHandler):
                 self.handleGetTeam(member)
             else:
                 self.handleGetTeams()
+        if collection == "stats":
+            if member is not None:
+                self.handleGetStat(member)
+            else:
+                self.handleGetStats()
         else:
             self.handleNotFound()
 
