@@ -314,18 +314,18 @@ function simulateSeason()
 
     var westDiv = document.createElement('div')
     var eastDiv = document.createElement('div')
-    //var overallDiv = document.createElement('div')
+    var overallDiv = document.createElement('div')
     westDiv.id = "westStandings"
     westDiv.innerHTML = "WESTERN STANDINGS"
     eastDiv.id = "eastStandings"
     eastDiv.innerHTML = "EASTERN STANDINGS"
-    //overallDiv.id = "overallStandings"
-    //overallDiv.innerHTML = "LEAGUE STANDINGS"
+    overallDiv.id = "overallStandings"
+    overallDiv.innerHTML = "LEAGUE CHAMPION"
     standingsDiv.appendChild(westDiv)
     standingsDiv.appendChild(eastDiv)
-    //standingsDiv.appendChild(overallDiv)
+    playoffDiv.appendChild(overallDiv)
 
-    var east1Div = document.createElement("div")
+    /*var east1Div = document.createElement("div")
     var west1Div = document.createElement("div")
     var east2Div = document.createElement("div")
     var west2Div = document.createElement("div")
@@ -469,7 +469,7 @@ function simulateSeason()
     westPosF1.id = "westPostF1"
     westPosF1.innerHTML = "1 - "
     champDiv.appendChild(eastPosF1)
-    champDiv.appendChild(westPosF1)
+    champDiv.appendChild(westPosF1)*/
     
 
 
