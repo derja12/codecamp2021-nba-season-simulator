@@ -3,101 +3,10 @@ SCHEDULE = []
 SCHEDULE_TEAMS = {}
 
 OPENED_TEAMS = {}
+TEAM_RATING = {}
 
 getTeamInfo();
-
-gameTeams = {
-    "warriors": {
-        "overallRating": 550
-    },
-    "suns": {
-        "stats": 200
-    },
-    "jazz": {
-        "stats": 700
-    },
-    "mavericks": {
-        "stats": 300
-    },
-    "nuggets": {
-        "stats": 475
-    },
-    "clippers": {
-        "stats": 340
-    },
-    "grizzlies": {
-        "stats": 180
-    },
-    "kings": {
-        "stats": 180
-    },
-    "trailblazers": {
-        "stats": 180
-    },
-    "thunder": {
-        "stats": 180
-    },
-    "spurs": {
-        "stats": 180
-    },
-    "timberwolves": {
-        "stats": 180
-    },
-    "rockets": {
-        "stats": 180
-    },
-    "pelicans": {
-        "stats": 180
-    },
-    "wizards": {
-        "stats": 180
-    },
-    "bulls": {
-        "stats": 180
-    },
-    "nets": {
-        "stats": 180
-    },
-    "76ers": {
-        "stats": 180
-    },
-    "cavaliers": {
-        "stats": 180
-    },
-    "heat": {
-        "stats": 180
-    },
-    "raptors": {
-        "stats": 180
-    },
-    "bucks": {
-        "stats": 180
-    },
-    "hornets": {
-        "stats": 180
-    },
-    "celtics": {
-        "stats": 180
-    },
-    "pacers": {
-        "stats": 180
-    },
-    "hawks": {
-        "stats": 180
-    },
-    "magic": {
-        "stats": 180
-    },
-    "pistons": {
-        "stats": 180
-    },
-    "knicks": {
-        "stats": 180
-    },
-    "lakers": {
-        "stats": 180
-    }
-}
+getTeamStats();
 
 function addWesternTeams(teams) {
     var pacificDiv = document.querySelector("#pacific")
@@ -111,7 +20,7 @@ function addWesternTeams(teams) {
         teamDiv.classList.add('team-div');
         teamDiv.innerHTML = team["city"] + " " + team["name"];
         teamDiv.onclick = function () {teamStats(teamDiv)};
-        OPENED_TEAMS[team["name"]] = false;
+        OPENED_TEAMS[team["name"].toLowerCase()] = false;
         if (team["division"] == "Pacific") {
             pacificDiv.appendChild(teamDiv);
         } else if (team["division"] == "Northwest") {
@@ -121,20 +30,6 @@ function addWesternTeams(teams) {
         }
     });
 }
-
-/*
-[
-    {
-        "id": 1610612754,
-        "name": "Hawks",
-        "city": "Atlanta",
-        "abbreviation": "ATL",
-        "conference": "East",
-        "division": "Southeast",
-    },
-    ...
-]
-*/
 
 function addEasternTeams(teams) {
     var atlanticDiv = document.querySelector("#atlantic")
@@ -445,17 +340,12 @@ function simulateSeason()
 
 }
 
-// points, field-goal-percentage, free-throw-percentage, 3-point-percentage, assists, rebounds
-/*
-
-weight: 
-    points: 20%
-    field-goal-percentage: 20%
-    free-throw-percentage: 10%
-    3-point-percentage: 20%
-    assists: 15%
-    rebounds: 15%
-*/
+function createTeamRatings(teams) {
+    teams.forEach(team => {
+        key = team["id"];
+        TEAM_RATING[key] = 0;
+    });
+}
 
 function calculateOverallRating(teams) {
     teams.forEach(team => {
@@ -467,17 +357,17 @@ function calculateOverallRating(teams) {
         total += 30 * team["fg3_pct"];
         total += 0.8125 * team["ast"];
         total += 0.35 * team["reb"];
-        total *= 3.333
+        total *= 3.333;
         console.log(total);
+        TEAM_RATING[team["id"]] = total;
     });
+    console.log(TEAM_RATING);
 }
 
-// getTeamStats();
-
 function calculateGame(leftTeamID, rightTeamID) {
-    var total = gameTeams[leftTeamID]["stats"] + gameTeams[rightTeamID]["stats"];
+    var total = TEAM_RATING[leftTeamID]["stats"] + TEAM_RATING[rightTeamID]["stats"];
     var onePercent = total / 100;
-    var percentThresh = gameTeams[rightTeamID]["stats"] / onePercent;
+    var percentThresh = TEAM_RATING[rightTeamID]["stats"] / onePercent;
     var winPercentPoint = Math.floor(Math.random() * 100);
     if (winPercentPoint < 100 - percentThresh) {
         teamWon = leftTeamID;
@@ -626,7 +516,13 @@ function isConferenceCalculated(teamObject, otherObject) {
             count += 1;
         }
     }
-    if (count < 6 && teamObject["conferenceCount"][otherObject["conference"]] < 3) {
+    if (count < 6) {
+        return false;
+    }
+
+    // condition 2: distribute evenly
+
+    if (count < 6 || teamObject["conferenceCount"][otherObject["conference"]] < otherObject["conferenceCount"][otherObject["conference"]]) {
         return false;
     }
     return true;
@@ -651,6 +547,7 @@ function getTeamInfo() {
             addWesternTeams(team_array);
             addEasternTeams(team_array);
             createSchedule(team_array);
+            createTeamRatings(team_array);
             team_array.forEach(teamObject => {
                 countTeamGames(teamObject["name"].toLowerCase());
             });
